@@ -15,7 +15,7 @@ the demo output is in [evidence/SUMMARY.md](evidence/SUMMARY.md).
 ## Setup
 
 Requires Python 3.11–3.13 (developed on 3.12) and macOS or Linux.
-
+ 
 ```bash
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
