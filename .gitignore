@@ -8,3 +8,6 @@ __pycache__/
 restricted/
 .DS_Store
 .claude/
+
+# The assignment brief stays local (not published)
+ASSIGNMENT.md
