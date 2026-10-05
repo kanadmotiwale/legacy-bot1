@@ -1,0 +1,53 @@
+{
+  "run_id": "discover-20261005T194028-680b6e",
+  "state": "COMPLETED",
+  "owner": "none",
+  "epoch": 2,
+  "history": [
+    {
+      "at": "2026-10-05T19:40:28.768+00:00",
+      "event": "start",
+      "actor": "system",
+      "state": "RUNNING",
+      "owner": "automation",
+      "epoch": 1,
+      "reason": ""
+    },
+    {
+      "at": "2026-10-05T19:40:37.754+00:00",
+      "event": "escalate",
+      "actor": "automation",
+      "state": "PAUSED_FOR_HUMAN",
+      "owner": "none",
+      "epoch": 1,
+      "reason": "irreversible action needs operator approval"
+    },
+    {
+      "at": "2026-10-05T19:40:38.035+00:00",
+      "event": "approve",
+      "actor": "human:demo-operator",
+      "state": "RESUMING",
+      "owner": "none",
+      "epoch": 1,
+      "reason": "scripted demo decision"
+    },
+    {
+      "at": "2026-10-05T19:40:38.037+00:00",
+      "event": "verified",
+      "actor": "automation",
+      "state": "RUNNING",
+      "owner": "automation",
+      "epoch": 2,
+      "reason": "discovery re-observes after handoff"
+    },
+    {
+      "at": "2026-10-05T19:40:39.299+00:00",
+      "event": "complete",
+      "actor": "automation",
+      "state": "COMPLETED",
+      "owner": "none",
+      "epoch": 2,
+      "reason": ""
+    }
+  ]
+}

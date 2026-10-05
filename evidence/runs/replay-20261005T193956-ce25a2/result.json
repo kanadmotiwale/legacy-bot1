@@ -1,0 +1,151 @@
+{
+  "run_id": "replay-20261005T193956-ce25a2",
+  "capability_id": "mockcore.member.read_savings_balance",
+  "version": "1.0.0",
+  "tenant": null,
+  "duration_ms": 1005,
+  "events": [
+    {
+      "t_ms": 233,
+      "kind": "policy",
+      "step_id": "login_user",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 252,
+      "kind": "policy",
+      "step_id": "login_password",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 279,
+      "kind": "policy",
+      "step_id": "login_submit",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 324,
+      "kind": "login",
+      "step_id": null,
+      "detail": {
+        "route": "/login",
+        "credential_refs": [
+          "mockcore.username",
+          "mockcore.password"
+        ]
+      }
+    },
+    {
+      "t_ms": 432,
+      "kind": "version_check",
+      "step_id": null,
+      "detail": {
+        "observed": "4.3.1",
+        "expected": ">=4.0,<5.0",
+        "ok": true
+      }
+    },
+    {
+      "t_ms": 503,
+      "kind": "policy",
+      "step_id": "click_member_search",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 543,
+      "kind": "step_completed",
+      "step_id": "click_member_search",
+      "detail": {
+        "index": 0,
+        "duration_ms": 104
+      }
+    },
+    {
+      "t_ms": 581,
+      "kind": "policy",
+      "step_id": "type_member_id",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 599,
+      "kind": "step_completed",
+      "step_id": "type_member_id",
+      "detail": {
+        "index": 1,
+        "duration_ms": 56
+      }
+    },
+    {
+      "t_ms": 625,
+      "kind": "policy",
+      "step_id": "click_search",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 792,
+      "kind": "step_completed",
+      "step_id": "click_search",
+      "detail": {
+        "index": 2,
+        "duration_ms": 192
+      }
+    },
+    {
+      "t_ms": 823,
+      "kind": "policy",
+      "step_id": "click_view",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 965,
+      "kind": "handler_fired",
+      "step_id": "click_view",
+      "detail": {
+        "handler": "permission_denied",
+        "category": "business_outcome",
+        "response": "return_outcome"
+      }
+    }
+  ],
+  "drift": [],
+  "evidence_dir": "evidence/runs/replay-20261005T193956-ce25a2",
+  "status": "business_outcome",
+  "outcome": "permission_denied",
+  "step_id": "click_view",
+  "details": {}
+}

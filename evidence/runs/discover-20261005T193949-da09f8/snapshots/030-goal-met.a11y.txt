@@ -1,0 +1,44 @@
+## frame: nav  (http://localhost:8000/app/nav)
+[f1e0] text "MockCore Teller 4.3.1" (emphasis)
+[f1e1] link "Member Search"
+[f1e2] cell "|"
+[f1e3] link "Sign Off"
+## frame: main  (http://localhost:8000/member/•••42)
+[f2e0] text "Northfield Community Credit Union" (emphasis)
+[f2e1] text "Member Detail" (emphasis)
+[f2e2] cell "Member ID:"
+[f2e3] cell "[REDACTED:member_id]"
+[f2e4] cell "Branch:"
+[f2e5] cell "Main St"
+[f2e6] cell "Name:"
+[f2e7] cell "[REDACTED:full_name]"
+[f2e8] cell "Status:"
+[f2e9] cell "Active"
+[f2e10] cell "Date of Birth:"
+[f2e11] cell "[REDACTED:dob]"
+[f2e12] cell "SSN:"
+[f2e13] cell "[REDACTED:ssn]"
+[f2e14] cell "Phone:"
+[f2e15] cell "[REDACTED:phone]"
+[f2e16] cell "Address:"
+[f2e17] cell "[REDACTED:address]"
+[f2e18] link "Open Sub-Account"
+[f2e19] text "|"
+[f2e20] link "Back to Search"
+[f2e21] text "Accounts" (emphasis)
+## frame: main > acctframe  (http://localhost:8000/member/•••42/accounts)
+[f3e0] text "Acct" (emphasis)
+[f3e1] text "Type" (emphasis)
+[f3e2] text "Nickname" (emphasis)
+[f3e3] text "Balance" (emphasis)
+[f3e4] text "Opened" (emphasis)
+[f3e5] cell "S01" column="Acct"
+[f3e6] cell "Share Savings" column="Type"
+[f3e7] cell "Primary Savings" column="Nickname"
+[f3e8] cell "[REDACTED:balance]" column="Balance"
+[f3e9] cell "06/01/2009" column="Opened"
+[f3e10] cell "C10" column="Acct"
+[f3e11] cell "Checking" column="Type"
+[f3e12] cell "Everyday" column="Nickname"
+[f3e13] cell "[REDACTED:balance]" column="Balance"
+[f3e14] cell "06/01/2009" column="Opened"

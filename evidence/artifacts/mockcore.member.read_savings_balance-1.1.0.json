@@ -1,0 +1,673 @@
+{
+  "schema_version": "1.0",
+  "capability_id": "mockcore.member.read_savings_balance",
+  "version": "1.1.0",
+  "status": "draft",
+  "title": "Read member savings balance",
+  "description": "Looks up a member by member ID and returns the current balance of their share savings account.",
+  "app": {
+    "vendor_product": "MockCore Teller",
+    "app_version_range": ">=4.0,<5.0",
+    "surface": "legacy_web",
+    "entry_point": "/app",
+    "version_probe": {
+      "frame_path": [
+        {
+          "name": "nav",
+          "url_pattern": null
+        }
+      ],
+      "pattern": "MockCore Teller (\\d+\\.\\d+\\.\\d+)"
+    },
+    "tenant_overrides": {
+      "lakeshore": {
+        "base_url": null,
+        "route_prefix": "/tb",
+        "text_map": {
+          "Member ID": "Member #",
+          "Member ID:": "Member #:",
+          "Search": "Find",
+          "Balance": "Current Bal.",
+          "Member Detail": "Member Profile"
+        },
+        "step_overrides": {},
+        "extra_handlers": []
+      }
+    }
+  },
+  "inputs": [
+    {
+      "name": "member_id",
+      "type": "string",
+      "description": "5-digit member ID",
+      "required": true,
+      "constraints": {
+        "pattern": "^\\d{5}$",
+        "min_length": null,
+        "max_length": null,
+        "minimum": null,
+        "maximum": null,
+        "enum": null
+      },
+      "sensitivity": "pii",
+      "example": null
+    }
+  ],
+  "outputs": [
+    {
+      "name": "savings_balance",
+      "type": "decimal",
+      "description": "Current balance of the member's primary share savings account",
+      "sensitivity": "pii",
+      "normalize": "currency_to_decimal",
+      "required": true
+    }
+  ],
+  "outcomes": [
+    {
+      "name": "member_not_found",
+      "description": "No member exists with the given member ID.",
+      "detail_fields": []
+    },
+    {
+      "name": "permission_denied",
+      "description": "The service account may not view this member (e.g. restricted employee account).",
+      "detail_fields": []
+    }
+  ],
+  "session": {
+    "login_route": "/login",
+    "login_steps": [
+      {
+        "id": "login_user",
+        "description": "Type the teller user ID",
+        "action": "type",
+        "target": {
+          "description": "User ID field",
+          "frame_path": [],
+          "candidates": [
+            {
+              "strategy": "near_label",
+              "label_text": "User ID:",
+              "control_role": "textbox"
+            },
+            {
+              "strategy": "css",
+              "selector": "input[name=usr]"
+            }
+          ]
+        },
+        "value": null,
+        "secret_ref": "mockcore.username",
+        "output": null,
+        "risk": "reversible",
+        "precondition": [],
+        "checkpoint": [],
+        "timeout_ms": 10000,
+        "retry": null,
+        "performed_by": "authored"
+      },
+      {
+        "id": "login_password",
+        "description": "Type the teller password",
+        "action": "type",
+        "target": {
+          "description": "Password field",
+          "frame_path": [],
+          "candidates": [
+            {
+              "strategy": "near_label",
+              "label_text": "Password:",
+              "control_role": "textbox"
+            },
+            {
+              "strategy": "css",
+              "selector": "input[type=password]"
+            }
+          ]
+        },
+        "value": null,
+        "secret_ref": "mockcore.password",
+        "output": null,
+        "risk": "reversible",
+        "precondition": [],
+        "checkpoint": [],
+        "timeout_ms": 10000,
+        "retry": null,
+        "performed_by": "authored"
+      },
+      {
+        "id": "login_submit",
+        "description": "Sign on",
+        "action": "click",
+        "target": {
+          "description": "Sign On button",
+          "frame_path": [],
+          "candidates": [
+            {
+              "strategy": "role_name",
+              "role": "button",
+              "name": "Sign On"
+            }
+          ]
+        },
+        "value": null,
+        "secret_ref": null,
+        "output": null,
+        "risk": "reversible",
+        "precondition": [],
+        "checkpoint": [
+          {
+            "kind": "route_matches",
+            "pattern": "/app",
+            "frame_path": []
+          }
+        ],
+        "timeout_ms": 10000,
+        "retry": null,
+        "performed_by": "authored"
+      }
+    ],
+    "logged_in": [
+      {
+        "kind": "route_matches",
+        "pattern": "/app",
+        "frame_path": []
+      }
+    ],
+    "credential_refs": [
+      "mockcore.username",
+      "mockcore.password"
+    ]
+  },
+  "steps": [
+    {
+      "id": "click_member_search",
+      "description": "Open member search from the menu bar",
+      "action": "click",
+      "target": {
+        "description": "Member Search link",
+        "frame_path": [
+          {
+            "name": "nav",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "role_name",
+            "role": "link",
+            "name": "Member Search"
+          },
+          {
+            "strategy": "text",
+            "text": "Member Search",
+            "role": null
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(2) > a:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": null,
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/app/nav",
+          "frame_path": [
+            {
+              "name": "nav",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/search",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "type_member_id",
+      "description": "Enter the member ID to search for",
+      "action": "type",
+      "target": {
+        "description": "Member ID textbox",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "near_label",
+            "label_text": "Member ID:",
+            "control_role": "textbox"
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(2) > input:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": "{member_id}",
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/search",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "field_value",
+          "target": {
+            "description": "Member ID textbox",
+            "frame_path": [
+              {
+                "name": "main",
+                "url_pattern": null
+              }
+            ],
+            "candidates": [
+              {
+                "strategy": "near_label",
+                "label_text": "Member ID:",
+                "control_role": "textbox"
+              },
+              {
+                "strategy": "css",
+                "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(2) > input:nth-of-type(1)"
+              }
+            ]
+          },
+          "equals": "{member_id}"
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "click_search",
+      "description": "Run the search",
+      "action": "click",
+      "target": {
+        "description": "Search button",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "role_name",
+            "role": "button",
+            "name": "Search"
+          },
+          {
+            "strategy": "text",
+            "text": "Search",
+            "role": null
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(3) > input:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": null,
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/search",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/search",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        },
+        {
+          "kind": "text_visible",
+          "text": "Member ID",
+          "exact": true,
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "click_view",
+      "description": "Open the matching member's detail page",
+      "action": "click",
+      "target": {
+        "description": "View link",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "table_cell",
+            "row_key_column": "Member ID",
+            "row_key_value": "{member_id}",
+            "column_header": null,
+            "control_role": "link"
+          },
+          {
+            "strategy": "role_name",
+            "role": "link",
+            "name": "View"
+          },
+          {
+            "strategy": "text",
+            "text": "View",
+            "role": null
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > a:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": null,
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/search",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/:member_id",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        },
+        {
+          "kind": "text_visible",
+          "text": "Member Detail",
+          "exact": true,
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "extract_savings_balance",
+      "description": "Read the share savings balance from the accounts table",
+      "action": "extract",
+      "target": {
+        "description": "savings balance",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          },
+          {
+            "name": "acctframe",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "table_cell",
+            "row_key_column": "Type",
+            "row_key_value": "Share Savings",
+            "column_header": "Balance",
+            "control_role": null
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4)"
+          }
+        ]
+      },
+      "value": null,
+      "secret_ref": null,
+      "output": "savings_balance",
+      "risk": "safe",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/:member_id/accounts",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            },
+            {
+              "name": "acctframe",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    }
+  ],
+  "handlers": [
+    {
+      "id": "member_not_found",
+      "description": "Search returned no member",
+      "detect": [
+        {
+          "kind": "text_visible",
+          "text": "No member found",
+          "exact": false,
+          "frame_path": null
+        }
+      ],
+      "category": "business_outcome",
+      "applies_to": [
+        "click_member_search",
+        "click_search"
+      ],
+      "response": {
+        "type": "return_outcome",
+        "outcome": "member_not_found",
+        "details": []
+      }
+    },
+    {
+      "id": "permission_denied",
+      "description": "Access denied page",
+      "detect": [
+        {
+          "kind": "text_visible",
+          "text": "Access Denied",
+          "exact": false,
+          "frame_path": null
+        }
+      ],
+      "category": "business_outcome",
+      "applies_to": "*",
+      "response": {
+        "type": "return_outcome",
+        "outcome": "permission_denied",
+        "details": []
+      }
+    },
+    {
+      "id": "maintenance_notice",
+      "description": "System notice interstitial overlays the page",
+      "detect": [
+        {
+          "kind": "text_visible",
+          "text": "System Notice",
+          "exact": false,
+          "frame_path": null
+        }
+      ],
+      "category": "recoverable",
+      "applies_to": "*",
+      "response": {
+        "type": "dismiss",
+        "target": {
+          "description": "OK button on the system notice",
+          "frame_path": null,
+          "candidates": [
+            {
+              "strategy": "role_name",
+              "role": "button",
+              "name": "OK"
+            }
+          ]
+        },
+        "max_times": 3
+      }
+    },
+    {
+      "id": "session_expired",
+      "description": "Session timed out; app shows the sign-on page",
+      "detect": [
+        {
+          "kind": "text_visible",
+          "text": "Your session has expired",
+          "exact": false,
+          "frame_path": null
+        }
+      ],
+      "category": "recoverable",
+      "applies_to": "*",
+      "response": {
+        "type": "reauthenticate",
+        "max_times": 1
+      }
+    },
+    {
+      "id": "server_error",
+      "description": "Transient application error page (HTTP 5xx)",
+      "detect": [
+        {
+          "kind": "http_status",
+          "min": 500,
+          "max": 599,
+          "frame_path": null
+        }
+      ],
+      "category": "recoverable",
+      "applies_to": "*",
+      "response": {
+        "type": "retry",
+        "policy": {
+          "max_attempts": 2,
+          "backoff_ms": [
+            500,
+            1500
+          ]
+        }
+      }
+    }
+  ],
+  "success": [
+    {
+      "kind": "text_visible",
+      "text": "Member Detail",
+      "exact": false,
+      "frame_path": null
+    }
+  ],
+  "idempotency": null,
+  "provenance": {
+    "discovery_run_id": "discover-20261005T193949-da09f8",
+    "model": "mock-llm (scripted)",
+    "recorded_at": "2026-10-05T19:39:54.456543Z",
+    "recorder_version": "0.1.0",
+    "goal_redacted": "Look up member •••42 and read their current savings balance",
+    "redactions_applied": [
+      "field:address",
+      "field:balance",
+      "field:dob",
+      "field:full_name",
+      "field:member_id",
+      "field:phone",
+      "field:savings_balance",
+      "field:ssn",
+      "field:typed",
+      "secret:mockcore.password",
+      "secret:mockcore.username"
+    ],
+    "human_steps": [],
+    "reviewed_by": null,
+    "approved_at": null,
+    "parent_version": "1.0.0",
+    "notes": [
+      "tenant override 'lakeshore' added from lakeshore.yaml"
+    ]
+  },
+  "fingerprint": "sha256:70d3552b8acaa306"
+}

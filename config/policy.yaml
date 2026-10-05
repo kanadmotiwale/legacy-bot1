@@ -1,0 +1,72 @@
+# Guardrail policy. Every action in discovery AND replay goes through PolicyGate.
+# Anything not explicitly allowed is blocked.
+
+allowed_origins:
+  - http://localhost:8000
+  - http://127.0.0.1:8000
+
+allowed_routes:            # path patterns; ':x' = one segment, '*' = one segment, '**' = anything
+  - /
+  - /login
+  - /logout
+  - /app
+  - /app/**
+  - /member/**
+  - /subaccount/**
+  - /tb/login
+  - /tb/app
+  - /tb/app/**
+  - /tb/member/**
+  - /tb/subaccount/**
+  # NOT allowed: /__admin/** (test harness toggles), anything off-origin
+
+allowed_actions: [navigate, click, type, select, extract, wait_for, request_human, finish]
+
+# Risk classification is policy's job, never the model's. An artifact can't downgrade it.
+irreversible:
+  - action: click
+    route: /subaccount/**
+    name_pattern: "(?i)^submit$"
+  - action: click
+    name_pattern: "(?i)^(confirm|post|delete|transfer|approve|close account)\\b"
+
+discovery:
+  on_irreversible: requires_approval   # human approves via the handoff mechanism
+  on_block: stop
+  max_steps: 25
+  timeout_s: 300
+  no_progress_repeats: 3
+
+replay:
+  irreversible_requires_approved_artifact: true
+  irreversible_requires_flag: true     # --allow-irreversible
+  allow_reauth: true
+
+capabilities:                          # per-capability limits
+  mockcore.subaccount.open:
+    max_runs_per_hour: 20
+    allow_irreversible: true
+  "*":
+    max_runs_per_hour: 200
+    allow_irreversible: false
+
+credentials:                           # reference -> environment variable. Values never touch disk.
+  mockcore.username: MOCKBANK_USER
+  mockcore.password: MOCKBANK_PASSWORD
+
+redaction:
+  sensitive_labels:
+    "SSN:": ssn
+    "Date of Birth:": dob
+    "Phone:": phone
+    "Address:": address
+    "Name:": full_name
+    "Member ID:": member_id
+    "Member #:": member_id
+  sensitive_columns:
+    Name: full_name
+    "Member ID": member_id
+    "Member #": member_id
+    Balance: balance
+    "Current Bal.": balance
+  llm_hidden_fields: [ssn, dob, phone, address]   # the model never needs these for any task

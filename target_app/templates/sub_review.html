@@ -1,0 +1,17 @@
+{% extends "_main.html" %}
+{% block body %}
+<font size="4"><b>Review Sub-Account</b></font>
+<p>Please review. Submitting will open the account and transfer funds. This cannot be undone.</p>
+<table class="{{ cls('tbl') }}" cellspacing="0" border="1">
+<tr><td>{{ t.label('member_id') }}</td><td>{{ m.member_id }}</td></tr>
+<tr><td>Account Type</td><td>{{ v.f_t }}</td></tr>
+<tr><td>Nickname</td><td>{{ v.f_n }}</td></tr>
+<tr><td>Initial Deposit</td><td>{{ amount }}</td></tr>
+<tr><td>Funding Account</td><td>{{ v.f_f }}</td></tr>
+</table>
+<form method="post" action="{{ t.prefix }}/subaccount/submit">
+{% for k in ['f_t','f_n','f_d','f_f'] %}<input type="hidden" name="{{ k }}" value="{{ v[k] }}">{% endfor %}
+<input type="hidden" name="m" value="{{ m.member_id }}">
+<input type="submit" name="act" value="Back"> <input type="submit" name="act" value="Submit">
+</form>
+{% endblock %}

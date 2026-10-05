@@ -1,0 +1,13 @@
+# Tenant "lakeshore" runs the same vendor product (MockCore Teller 4.4) as the tenant the
+# capability was recorded on, configured differently. The artifact is reused as-is; only
+# this delta is stored. Text maps are exact-match relabels applied at bind time.
+base_url: null            # same host in the demo; a real tenant would have its own
+route_prefix: /tb
+text_map:
+  "Member ID": "Member #"
+  "Member ID:": "Member #:"
+  "Search": "Find"
+  "Balance": "Current Bal."
+  "Member Detail": "Member Profile"
+step_overrides: {}
+extra_handlers: []

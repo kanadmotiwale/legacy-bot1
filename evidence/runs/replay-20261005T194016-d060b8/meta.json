@@ -1,0 +1,7 @@
+{
+  "kind": "replay",
+  "capability_id": "mockcore.member.read_savings_balance",
+  "version": "1.0.0",
+  "tenant": null,
+  "started_at": 1791229216.001224
+}

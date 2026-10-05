@@ -1,0 +1,25 @@
+<html>
+<head><title>{{ t.brand }}</title>
+<style>
+ body { font-family: Verdana, Arial, sans-serif; font-size: 12px; margin: 6px; background: #f4f4ec; }
+ .{{ cls('tbl') }} td { font-size: 12px; padding: 3px 6px; }
+ .{{ cls('hdr') }} { background: #c8c8b8; }
+ .{{ cls('err') }} { color: #b00000; }
+</style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="2" border="0">
+<tr><td bgcolor="{{ t.color }}"><font color="white" size="2"><b>{{ t.brand }}</b></font></td></tr>
+<tr><td>{% block body %}{% endblock %}</td></tr>
+</table>
+{% if modal == "interstitial" %}
+<div class="{{ cls('ov') }}" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:50">
+ <table style="background:#ffffcc;margin:90px auto;border:2px solid #333" cellpadding="8">
+  <tr><td><b>System Notice</b></td></tr>
+  <tr><td>Scheduled maintenance tonight 11:00 PM &ndash; 2:00 AM. Please save your work.</td></tr>
+  <tr><td align="center"><button type="button" onclick="this.closest('div').remove()">OK</button></td></tr>
+ </table>
+</div>
+{% endif %}
+</body>
+</html>

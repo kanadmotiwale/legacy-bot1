@@ -1,0 +1,23 @@
+{% extends "_main.html" %}
+{% block body %}
+<font size="4"><b>{{ t.label('search_title') }}</b></font>
+<form method="get" action="{{ t.prefix }}/member/search">
+<table class="{{ cls('tbl') }}" cellspacing="0">
+<tr><td>{{ t.label('member_id') }}:</td><td><input type="text" name="fld1" size="10" value="{{ query }}"></td>
+<td><input type="submit" value="{{ t.label('search_button') }}"></td></tr>
+</table>
+</form>
+{% if error %}<div class="{{ cls('err') }}">{{ error }}</div>{% endif %}
+{% if results is not none %}
+ {% if results %}
+ <table class="{{ cls('tbl') }}" border="1" cellspacing="0">
+  <tr class="{{ cls('hdr') }}"><td><b>{{ t.label('member_id') }}</b></td><td><b>Name</b></td><td><b>Branch</b></td><td><b>Status</b></td>{% if t.extra_column %}<td><b>{{ t.extra_column }}</b></td>{% endif %}<td>&nbsp;</td></tr>
+  {% for m in results %}
+  <tr><td>{{ m.member_id }}</td><td>{{ m.full_name }}</td><td>{{ m.branch }}</td><td>{{ m.status }}</td>{% if t.extra_column %}<td>Low</td>{% endif %}<td><a href="{{ t.prefix }}/member/{{ m.member_id }}">View</a></td></tr>
+  {% endfor %}
+ </table>
+ {% else %}
+ <div class="{{ cls('msg') }}">No member found matching {{ t.label('member_id') }} {{ query }}.</div>
+ {% endif %}
+{% endif %}
+{% endblock %}

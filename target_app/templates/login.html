@@ -1,0 +1,15 @@
+<html><head><title>{{ t.brand }} - Sign On</title></head>
+<body style="font-family:Verdana,Arial;font-size:12px;background:#e8e8e0">
+<table width="420" align="center" cellpadding="4" style="margin-top:60px;border:1px solid #666;background:#fff">
+<tr><td colspan="2" bgcolor="{{ t.color }}"><font color="white"><b>{{ t.brand }}</b></font></td></tr>
+<tr><td colspan="2"><font size="3"><b>Teller Sign On</b></font></td></tr>
+{% if expired %}<tr><td colspan="2"><font color="#b00000">Your session has expired. Please sign on again.</font></td></tr>{% endif %}
+{% if failed %}<tr><td colspan="2"><font color="#b00000">Invalid user ID or password.</font></td></tr>{% endif %}
+<form method="post" action="{{ t.prefix }}/login" target="_top">
+<tr><td>User ID:</td><td><input type="text" name="usr" size="20" autocomplete="off"></td></tr>
+<tr><td>Password:</td><td><input type="password" name="pwd" size="20"></td></tr>
+<tr><td></td><td><input type="submit" value="Sign On"></td></tr>
+</form>
+</table>
+<p align="center"><font size="1" color="#666">MockCore Teller {{ t.version }} &middot; Authorized use only</font></p>
+</body></html>

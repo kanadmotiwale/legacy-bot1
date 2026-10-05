@@ -1,0 +1,15 @@
+## frame: nav  (http://localhost:8000/app/nav)
+[f1e0] text "MockCore Teller 4.3.1" (emphasis)
+[f1e1] link "Member Search"
+[f1e2] cell "|"
+[f1e3] link "Sign Off"
+## frame: main  (http://localhost:8000/subaccount/submit)
+[f2e0] text "Northfield Community Credit Union" (emphasis)
+[f2e1] text "Sub-Account Opened" (emphasis)
+[f2e2] cell "Reference Number:"
+[f2e3] text "SA-480017" (emphasis)
+[f2e4] cell "New Account:"
+[f2e5] cell "S03"
+[f2e6] cell "Nickname:"
+[f2e7] cell "\u2022\u2022\u2022ay"
+[f2e8] link "Return to Member Detail"

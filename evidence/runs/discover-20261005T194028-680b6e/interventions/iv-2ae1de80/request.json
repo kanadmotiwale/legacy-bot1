@@ -1,0 +1,235 @@
+{
+  "id": "iv-2ae1de80",
+  "run_id": "discover-20261005T194028-680b6e",
+  "kind": "approval",
+  "created_at": "2026-10-05T19:40:37.779+00:00",
+  "mode": "discovery",
+  "capability_id": null,
+  "goal": "Open a new Sub-Savings sub-account nicknamed '•••ay' for member •••42 with an initial deposit of •••00 from S01, and reach the confirmation screen",
+  "step_id": null,
+  "step_index": 10,
+  "step_description": "Submit the reviewed sub-account (irreversible)",
+  "reason": "irreversible action needs operator approval",
+  "current_url": "top=http://localhost:8000/app; nav=http://localhost:8000/app/nav; main=http://localhost:8000/subaccount/review",
+  "screenshot": "snapshots/057-handoff-iv-2ae1de80.png",
+  "a11y_snapshot": "snapshots/057-handoff-iv-2ae1de80.a11y.txt",
+  "recent_events": [
+    {
+      "run_id": "discover-20261005T194028-680b6e",
+      "seq": 48,
+      "t_ms": 7625,
+      "ts": "2026-10-05T19:40:36.197+00:00",
+      "type": "action",
+      "tool": "select",
+      "ok": true,
+      "error": null,
+      "duration_ms": 11,
+      "value": "S01"
+    },
+    {
+      "run_id": "discover-20261005T194028-680b6e",
+      "seq": 49,
+      "t_ms": 8334,
+      "ts": "2026-10-05T19:40:36.906+00:00",
+      "type": "observation",
+      "step": 9,
+      "url": "http://localhost:8000/app",
+      "frames": [
+        "http://localhost:8000/app",
+        "http://localhost:8000/app/nav",
+        "http://localhost:8000/subaccount/new?m=•••42"
+      ],
+      "elements": 16,
+      "digest": "6211118384228b91"
+    },
+    {
+      "run_id": "discover-20261005T194028-680b6e",
+      "seq": 50,
+      "t_ms": 8334,
+      "ts": "2026-10-05T19:40:36.906+00:00",
+      "type": "llm_decision",
+      "step": 9,
+      "tool": "click",
+      "args": {
+        "ref": "f2e11"
+      },
+      "reason": "Go to the review screen",
+      "usage": null
+    },
+    {
+      "run_id": "discover-20261005T194028-680b6e",
+      "seq": 51,
+      "t_ms": 8341,
+      "ts": "2026-10-05T19:40:36.913+00:00",
+      "type": "policy",
+      "action": "click",
+      "decision": "allow",
+      "reason": "allowed",
+      "risk": "reversible",
+      "rule": null
+    },
+    {
+      "run_id": "discover-20261005T194028-680b6e",
+      "seq": 52,
+      "t_ms": 8353,
+      "ts": "2026-10-05T19:40:36.925+00:00",
+      "type": "locator_candidates",
+      "ref": "f2e11",
+      "kept": [
+        "role_name",
+        "text",
+        "css"
+      ],
+      "report": [
+        {
+          "locator": {
+            "strategy": "role_name",
+            "role": "button",
+            "name": "Continue"
+          },
+          "count": 1,
+          "same_element": true,
+          "kept": true,
+          "error": null
+        },
+        {
+          "locator": {
+            "strategy": "text",
+            "text": "Continue",
+            "role": null
+          },
+          "count": 1,
+          "same_element": true,
+          "kept": true,
+          "error": null
+        },
+        {
+          "locator": {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(2) > input:nth-of-type(1)"
+          },
+          "count": 1,
+          "same_element": true,
+          "kept": true,
+          "error": null
+        }
+      ]
+    },
+    {
+      "run_id": "discover-20261005T194028-680b6e",
+      "seq": 53,
+      "t_ms": 8379,
+      "ts": "2026-10-05T19:40:36.951+00:00",
+      "type": "action",
+      "tool": "click",
+      "ok": true,
+      "error": null,
+      "duration_ms": 25,
+      "value": null
+    },
+    {
+      "run_id": "discover-20261005T194028-680b6e",
+      "seq": 54,
+      "t_ms": 9154,
+      "ts": "2026-10-05T19:40:37.726+00:00",
+      "type": "observation",
+      "step": 10,
+      "url": "http://localhost:8000/app",
+      "frames": [
+        "http://localhost:8000/app",
+        "http://localhost:8000/app/nav",
+        "http://localhost:8000/subaccount/review"
+      ],
+      "elements": 19,
+      "digest": "6e573c781d554b77"
+    },
+    {
+      "run_id": "discover-20261005T194028-680b6e",
+      "seq": 55,
+      "t_ms": 9154,
+      "ts": "2026-10-05T19:40:37.726+00:00",
+      "type": "llm_decision",
+      "step": 10,
+      "tool": "click",
+      "args": {
+        "ref": "f2e14"
+      },
+      "reason": "Submit the reviewed sub-account (irreversible)",
+      "usage": null
+    },
+    {
+      "run_id": "discover-20261005T194028-680b6e",
+      "seq": 56,
+      "t_ms": 9169,
+      "ts": "2026-10-05T19:40:37.742+00:00",
+      "type": "policy",
+      "action": "click",
+      "decision": "requires_approval",
+      "reason": "irreversible action needs operator approval",
+      "risk": "irreversible",
+      "rule": "irreversible[0]"
+    },
+    {
+      "run_id": "discover-20261005T194028-680b6e",
+      "seq": 57,
+      "t_ms": 9181,
+      "ts": "2026-10-05T19:40:37.753+00:00",
+      "type": "locator_candidates",
+      "ref": "f2e14",
+      "kept": [
+        "role_name",
+        "text",
+        "css"
+      ],
+      "report": [
+        {
+          "locator": {
+            "strategy": "role_name",
+            "role": "button",
+            "name": "Submit"
+          },
+          "count": 1,
+          "same_element": true,
+          "kept": true,
+          "error": null
+        },
+        {
+          "locator": {
+            "strategy": "text",
+            "text": "Submit",
+            "role": null
+          },
+          "count": 1,
+          "same_element": true,
+          "kept": true,
+          "error": null
+        },
+        {
+          "locator": {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > input:nth-of-type(7)"
+          },
+          "count": 1,
+          "same_element": true,
+          "kept": true,
+          "error": null
+        }
+      ]
+    }
+  ],
+  "proposed_action": {
+    "action": "click",
+    "target": "Submit",
+    "risk": "irreversible"
+  },
+  "expected_after_resume": null,
+  "cdp_endpoint": "http://127.0.0.1:54032",
+  "allowed_decisions": [
+    "approve",
+    "take_control",
+    "abort"
+  ],
+  "status": "resolved",
+  "resolution": "approve by demo-operator",
+  "human_actions": []
+}

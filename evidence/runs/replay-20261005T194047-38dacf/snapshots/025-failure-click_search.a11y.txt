@@ -1,0 +1,22 @@
+## frame: nav  (http://localhost:8000/tb/app/nav)
+[f1e0] text "MockCore Teller 4.4.0" (emphasis)
+[f1e1] link "Member Search"
+[f1e2] cell "|"
+[f1e3] link "Sign Off"
+## frame: main  (http://localhost:8000/tb/member/search?fld1=•••42)
+[f2e0] text "Lakeshore Federal Credit Union" (emphasis)
+[f2e1] text "Member Search" (emphasis)
+[f2e2] cell "Member #:"
+[f2e3] textbox "[REDACTED:member_id]" value="[REDACTED:member_id]" beside="Member #:"
+[f2e4] button "Find"
+[f2e5] text "Member #" (emphasis)
+[f2e6] text "Name" (emphasis)
+[f2e7] text "Branch" (emphasis)
+[f2e8] text "Status" (emphasis)
+[f2e9] text "Risk Tier" (emphasis)
+[f2e10] cell "[REDACTED:member_id]" column="Member #"
+[f2e11] cell "[REDACTED:full_name]" column="Name"
+[f2e12] cell "Main St" column="Branch"
+[f2e13] cell "Active" column="Status"
+[f2e14] cell "Low" column="Risk Tier"
+[f2e15] link "View"

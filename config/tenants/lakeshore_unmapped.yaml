@@ -1,0 +1,2 @@
+# Same tenant with only the route prefix mapped: shows how unmapped relabels surface as drift + a precise failure.
+route_prefix: /tb

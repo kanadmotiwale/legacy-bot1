@@ -1,0 +1,26 @@
+{
+  "run_id": "replay-20261005T194001-f4e4aa",
+  "state": "FAILED",
+  "owner": "none",
+  "epoch": 1,
+  "history": [
+    {
+      "at": "2026-10-05T19:40:02.152+00:00",
+      "event": "start",
+      "actor": "system",
+      "state": "RUNNING",
+      "owner": "automation",
+      "epoch": 1,
+      "reason": ""
+    },
+    {
+      "at": "2026-10-05T19:40:04.938+00:00",
+      "event": "fail",
+      "actor": "automation",
+      "state": "FAILED",
+      "owner": "none",
+      "epoch": 1,
+      "reason": ""
+    }
+  ]
+}

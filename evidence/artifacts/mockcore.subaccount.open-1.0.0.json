@@ -1,0 +1,1297 @@
+{
+  "schema_version": "1.0",
+  "capability_id": "mockcore.subaccount.open",
+  "version": "1.0.0",
+  "status": "approved",
+  "title": "Open a sub-account",
+  "description": "Opens a new sub-account for a member, funded from an existing account, and returns the confirmation reference.",
+  "app": {
+    "vendor_product": "MockCore Teller",
+    "app_version_range": ">=4.0,<5.0",
+    "surface": "legacy_web",
+    "entry_point": "/app",
+    "version_probe": {
+      "frame_path": [
+        {
+          "name": "nav",
+          "url_pattern": null
+        }
+      ],
+      "pattern": "MockCore Teller (\\d+\\.\\d+\\.\\d+)"
+    },
+    "tenant_overrides": {}
+  },
+  "inputs": [
+    {
+      "name": "member_id",
+      "type": "string",
+      "description": "5-digit member ID",
+      "required": true,
+      "constraints": {
+        "pattern": "^\\d{5}$",
+        "min_length": null,
+        "max_length": null,
+        "minimum": null,
+        "maximum": null,
+        "enum": null
+      },
+      "sensitivity": "pii",
+      "example": null
+    },
+    {
+      "name": "account_type",
+      "type": "enum",
+      "description": "Sub-account product",
+      "required": true,
+      "constraints": {
+        "pattern": null,
+        "min_length": null,
+        "max_length": null,
+        "minimum": null,
+        "maximum": null,
+        "enum": [
+          "Sub-Savings",
+          "Vacation Club",
+          "Holiday Club"
+        ]
+      },
+      "sensitivity": "public",
+      "example": "Sub-Savings"
+    },
+    {
+      "name": "nickname",
+      "type": "string",
+      "description": "Nickname; also the idempotency key",
+      "required": true,
+      "constraints": {
+        "pattern": "^[A-Za-z0-9 ]{1,20}$",
+        "min_length": null,
+        "max_length": null,
+        "minimum": null,
+        "maximum": null,
+        "enum": null
+      },
+      "sensitivity": "internal",
+      "example": "Rainy Day"
+    },
+    {
+      "name": "initial_deposit",
+      "type": "decimal",
+      "description": "Opening deposit in USD",
+      "required": true,
+      "constraints": null,
+      "sensitivity": "internal",
+      "example": "25.00"
+    },
+    {
+      "name": "funding_account",
+      "type": "string",
+      "description": "Suffix of the funding account, e.g. S01",
+      "required": true,
+      "constraints": {
+        "pattern": "^[A-Z]\\d{2}$",
+        "min_length": null,
+        "max_length": null,
+        "minimum": null,
+        "maximum": null,
+        "enum": null
+      },
+      "sensitivity": "internal",
+      "example": "S01"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "reference_number",
+      "type": "string",
+      "description": "Confirmation reference number of the new sub-account",
+      "sensitivity": "internal",
+      "normalize": "trim",
+      "required": false
+    }
+  ],
+  "outcomes": [
+    {
+      "name": "member_not_found",
+      "description": "No member exists with the given member ID.",
+      "detail_fields": []
+    },
+    {
+      "name": "permission_denied",
+      "description": "The service account may not view this member (e.g. restricted employee account).",
+      "detail_fields": []
+    },
+    {
+      "name": "validation_error",
+      "description": "The application rejected the submitted values. field_errors maps field -> message.",
+      "detail_fields": [
+        "field_errors"
+      ]
+    }
+  ],
+  "session": {
+    "login_route": "/login",
+    "login_steps": [
+      {
+        "id": "login_user",
+        "description": "Type the teller user ID",
+        "action": "type",
+        "target": {
+          "description": "User ID field",
+          "frame_path": [],
+          "candidates": [
+            {
+              "strategy": "near_label",
+              "label_text": "User ID:",
+              "control_role": "textbox"
+            },
+            {
+              "strategy": "css",
+              "selector": "input[name=usr]"
+            }
+          ]
+        },
+        "value": null,
+        "secret_ref": "mockcore.username",
+        "output": null,
+        "risk": "reversible",
+        "precondition": [],
+        "checkpoint": [],
+        "timeout_ms": 10000,
+        "retry": null,
+        "performed_by": "authored"
+      },
+      {
+        "id": "login_password",
+        "description": "Type the teller password",
+        "action": "type",
+        "target": {
+          "description": "Password field",
+          "frame_path": [],
+          "candidates": [
+            {
+              "strategy": "near_label",
+              "label_text": "Password:",
+              "control_role": "textbox"
+            },
+            {
+              "strategy": "css",
+              "selector": "input[type=password]"
+            }
+          ]
+        },
+        "value": null,
+        "secret_ref": "mockcore.password",
+        "output": null,
+        "risk": "reversible",
+        "precondition": [],
+        "checkpoint": [],
+        "timeout_ms": 10000,
+        "retry": null,
+        "performed_by": "authored"
+      },
+      {
+        "id": "login_submit",
+        "description": "Sign on",
+        "action": "click",
+        "target": {
+          "description": "Sign On button",
+          "frame_path": [],
+          "candidates": [
+            {
+              "strategy": "role_name",
+              "role": "button",
+              "name": "Sign On"
+            }
+          ]
+        },
+        "value": null,
+        "secret_ref": null,
+        "output": null,
+        "risk": "reversible",
+        "precondition": [],
+        "checkpoint": [
+          {
+            "kind": "route_matches",
+            "pattern": "/app",
+            "frame_path": []
+          }
+        ],
+        "timeout_ms": 10000,
+        "retry": null,
+        "performed_by": "authored"
+      }
+    ],
+    "logged_in": [
+      {
+        "kind": "route_matches",
+        "pattern": "/app",
+        "frame_path": []
+      }
+    ],
+    "credential_refs": [
+      "mockcore.username",
+      "mockcore.password"
+    ]
+  },
+  "steps": [
+    {
+      "id": "click_member_search",
+      "description": "Open member search",
+      "action": "click",
+      "target": {
+        "description": "Member Search link",
+        "frame_path": [
+          {
+            "name": "nav",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "role_name",
+            "role": "link",
+            "name": "Member Search"
+          },
+          {
+            "strategy": "text",
+            "text": "Member Search",
+            "role": null
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(2) > a:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": null,
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/app/nav",
+          "frame_path": [
+            {
+              "name": "nav",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/search",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "type_member_id",
+      "description": "Enter the member ID",
+      "action": "type",
+      "target": {
+        "description": "Member ID textbox",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "near_label",
+            "label_text": "Member ID:",
+            "control_role": "textbox"
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(2) > input:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": "{member_id}",
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/search",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "field_value",
+          "target": {
+            "description": "Member ID textbox",
+            "frame_path": [
+              {
+                "name": "main",
+                "url_pattern": null
+              }
+            ],
+            "candidates": [
+              {
+                "strategy": "near_label",
+                "label_text": "Member ID:",
+                "control_role": "textbox"
+              },
+              {
+                "strategy": "css",
+                "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(2) > input:nth-of-type(1)"
+              }
+            ]
+          },
+          "equals": "{member_id}"
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "click_search",
+      "description": "Run the search",
+      "action": "click",
+      "target": {
+        "description": "Search button",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "role_name",
+            "role": "button",
+            "name": "Search"
+          },
+          {
+            "strategy": "text",
+            "text": "Search",
+            "role": null
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(3) > input:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": null,
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/search",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/search",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        },
+        {
+          "kind": "text_visible",
+          "text": "Member ID",
+          "exact": true,
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "click_view",
+      "description": "Open the member",
+      "action": "click",
+      "target": {
+        "description": "View link",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "table_cell",
+            "row_key_column": "Member ID",
+            "row_key_value": "{member_id}",
+            "column_header": null,
+            "control_role": "link"
+          },
+          {
+            "strategy": "role_name",
+            "role": "link",
+            "name": "View"
+          },
+          {
+            "strategy": "text",
+            "text": "View",
+            "role": null
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > a:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": null,
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/search",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/:member_id",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        },
+        {
+          "kind": "text_visible",
+          "text": "Member Detail",
+          "exact": true,
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "click_open_sub_account",
+      "description": "Start opening a sub-account",
+      "action": "click",
+      "target": {
+        "description": "Open Sub-Account link",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "role_name",
+            "role": "link",
+            "name": "Open Sub-Account"
+          },
+          {
+            "strategy": "text",
+            "text": "Open Sub-Account",
+            "role": null
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > p:nth-of-type(1) > a:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": null,
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/member/:member_id",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "route_matches",
+          "pattern": "/subaccount/new",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "select_account_type",
+      "description": "Choose the account type",
+      "action": "select",
+      "target": {
+        "description": "Account Type combobox",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "near_label",
+            "label_text": "Account Type:",
+            "control_role": "combobox"
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(2) > select:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": "{account_type}",
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/subaccount/new",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "field_value",
+          "target": {
+            "description": "Account Type combobox",
+            "frame_path": [
+              {
+                "name": "main",
+                "url_pattern": null
+              }
+            ],
+            "candidates": [
+              {
+                "strategy": "near_label",
+                "label_text": "Account Type:",
+                "control_role": "combobox"
+              },
+              {
+                "strategy": "css",
+                "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(2) > select:nth-of-type(1)"
+              }
+            ]
+          },
+          "equals": "{account_type}"
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "type_nickname",
+      "description": "Enter the nickname",
+      "action": "type",
+      "target": {
+        "description": "Nickname: textbox",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "role_name",
+            "role": "textbox",
+            "name": "Nickname:"
+          },
+          {
+            "strategy": "label",
+            "text": "Nickname:"
+          },
+          {
+            "strategy": "near_label",
+            "label_text": "Nickname:",
+            "control_role": "textbox"
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(2) > input:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": "{nickname}",
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/subaccount/new",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "field_value",
+          "target": {
+            "description": "Nickname: textbox",
+            "frame_path": [
+              {
+                "name": "main",
+                "url_pattern": null
+              }
+            ],
+            "candidates": [
+              {
+                "strategy": "role_name",
+                "role": "textbox",
+                "name": "Nickname:"
+              },
+              {
+                "strategy": "label",
+                "text": "Nickname:"
+              },
+              {
+                "strategy": "near_label",
+                "label_text": "Nickname:",
+                "control_role": "textbox"
+              },
+              {
+                "strategy": "css",
+                "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(2) > input:nth-of-type(1)"
+              }
+            ]
+          },
+          "equals": "{nickname}"
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "type_initial_deposit",
+      "description": "Enter the initial deposit",
+      "action": "type",
+      "target": {
+        "description": "Initial Deposit textbox",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "near_label",
+            "label_text": "Initial Deposit:",
+            "control_role": "textbox"
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(2) > input:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": "{initial_deposit}",
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/subaccount/new",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "field_value",
+          "target": {
+            "description": "Initial Deposit textbox",
+            "frame_path": [
+              {
+                "name": "main",
+                "url_pattern": null
+              }
+            ],
+            "candidates": [
+              {
+                "strategy": "near_label",
+                "label_text": "Initial Deposit:",
+                "control_role": "textbox"
+              },
+              {
+                "strategy": "css",
+                "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(2) > input:nth-of-type(1)"
+              }
+            ]
+          },
+          "equals": "{initial_deposit}"
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "select_funding_account",
+      "description": "Choose the funding account",
+      "action": "select",
+      "target": {
+        "description": "Funding Account combobox",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "near_label",
+            "label_text": "Funding Account:",
+            "control_role": "combobox"
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(2) > select:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": "{funding_account}",
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/subaccount/new",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "field_value",
+          "target": {
+            "description": "Funding Account combobox",
+            "frame_path": [
+              {
+                "name": "main",
+                "url_pattern": null
+              }
+            ],
+            "candidates": [
+              {
+                "strategy": "near_label",
+                "label_text": "Funding Account:",
+                "control_role": "combobox"
+              },
+              {
+                "strategy": "css",
+                "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(2) > select:nth-of-type(1)"
+              }
+            ]
+          },
+          "equals": "{funding_account}"
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "click_continue",
+      "description": "Go to the review screen",
+      "action": "click",
+      "target": {
+        "description": "Continue button",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "role_name",
+            "role": "button",
+            "name": "Continue"
+          },
+          {
+            "strategy": "text",
+            "text": "Continue",
+            "role": null
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(2) > input:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": null,
+      "secret_ref": null,
+      "output": null,
+      "risk": "reversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/subaccount/new",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "route_matches",
+          "pattern": "/subaccount/review",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        },
+        {
+          "kind": "text_visible",
+          "text": "Review Sub-Account",
+          "exact": true,
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "click_submit",
+      "description": "Submit the reviewed sub-account (irreversible)",
+      "action": "click",
+      "target": {
+        "description": "Submit button",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "role_name",
+            "role": "button",
+            "name": "Submit"
+          },
+          {
+            "strategy": "text",
+            "text": "Submit",
+            "role": null
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > form:nth-of-type(1) > input:nth-of-type(7)"
+          }
+        ]
+      },
+      "value": null,
+      "secret_ref": null,
+      "output": null,
+      "risk": "irreversible",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/subaccount/review",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [
+        {
+          "kind": "route_matches",
+          "pattern": "/subaccount/submit",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        },
+        {
+          "kind": "text_visible",
+          "text": "Sub-Account Opened",
+          "exact": true,
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    },
+    {
+      "id": "extract_reference_number",
+      "description": "Read the confirmation reference number",
+      "action": "extract",
+      "target": {
+        "description": "reference number",
+        "frame_path": [
+          {
+            "name": "main",
+            "url_pattern": null
+          }
+        ],
+        "candidates": [
+          {
+            "strategy": "near_label",
+            "label_text": "Reference Number:",
+            "control_role": null
+          },
+          {
+            "strategy": "css",
+            "selector": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(2) > b:nth-of-type(1)"
+          }
+        ]
+      },
+      "value": null,
+      "secret_ref": null,
+      "output": "reference_number",
+      "risk": "safe",
+      "precondition": [
+        {
+          "kind": "route_matches",
+          "pattern": "/subaccount/submit",
+          "frame_path": [
+            {
+              "name": "main",
+              "url_pattern": null
+            }
+          ]
+        }
+      ],
+      "checkpoint": [],
+      "timeout_ms": 10000,
+      "retry": null,
+      "performed_by": "agent"
+    }
+  ],
+  "handlers": [
+    {
+      "id": "member_not_found",
+      "description": "Search returned no member",
+      "detect": [
+        {
+          "kind": "text_visible",
+          "text": "No member found",
+          "exact": false,
+          "frame_path": null
+        }
+      ],
+      "category": "business_outcome",
+      "applies_to": [
+        "click_member_search",
+        "click_search"
+      ],
+      "response": {
+        "type": "return_outcome",
+        "outcome": "member_not_found",
+        "details": []
+      }
+    },
+    {
+      "id": "permission_denied",
+      "description": "Access denied page",
+      "detect": [
+        {
+          "kind": "text_visible",
+          "text": "Access Denied",
+          "exact": false,
+          "frame_path": null
+        }
+      ],
+      "category": "business_outcome",
+      "applies_to": "*",
+      "response": {
+        "type": "return_outcome",
+        "outcome": "permission_denied",
+        "details": []
+      }
+    },
+    {
+      "id": "validation_error",
+      "description": "Form re-rendered with field errors",
+      "detect": [
+        {
+          "kind": "text_visible",
+          "text": "Please correct the errors below",
+          "exact": false,
+          "frame_path": null
+        }
+      ],
+      "category": "business_outcome",
+      "applies_to": [
+        "click_open_sub_account",
+        "click_continue",
+        "click_submit"
+      ],
+      "response": {
+        "type": "return_outcome",
+        "outcome": "validation_error",
+        "details": [
+          {
+            "name": "field_errors",
+            "anchor_text": "Please correct the errors below:",
+            "parse": "field_colon_message",
+            "frame_path": null
+          }
+        ]
+      }
+    },
+    {
+      "id": "maintenance_notice",
+      "description": "System notice interstitial overlays the page",
+      "detect": [
+        {
+          "kind": "text_visible",
+          "text": "System Notice",
+          "exact": false,
+          "frame_path": null
+        }
+      ],
+      "category": "recoverable",
+      "applies_to": "*",
+      "response": {
+        "type": "dismiss",
+        "target": {
+          "description": "OK button on the system notice",
+          "frame_path": null,
+          "candidates": [
+            {
+              "strategy": "role_name",
+              "role": "button",
+              "name": "OK"
+            }
+          ]
+        },
+        "max_times": 3
+      }
+    },
+    {
+      "id": "session_expired",
+      "description": "Session timed out; app shows the sign-on page",
+      "detect": [
+        {
+          "kind": "text_visible",
+          "text": "Your session has expired",
+          "exact": false,
+          "frame_path": null
+        }
+      ],
+      "category": "recoverable",
+      "applies_to": "*",
+      "response": {
+        "type": "reauthenticate",
+        "max_times": 1
+      }
+    },
+    {
+      "id": "server_error",
+      "description": "Transient application error page (HTTP 5xx)",
+      "detect": [
+        {
+          "kind": "http_status",
+          "min": 500,
+          "max": 599,
+          "frame_path": null
+        }
+      ],
+      "category": "recoverable",
+      "applies_to": "*",
+      "response": {
+        "type": "retry",
+        "policy": {
+          "max_attempts": 2,
+          "backoff_ms": [
+            500,
+            1500
+          ]
+        }
+      }
+    }
+  ],
+  "success": [
+    {
+      "kind": "text_visible",
+      "text": "Sub-Account Opened",
+      "exact": false,
+      "frame_path": null
+    }
+  ],
+  "idempotency": {
+    "key_inputs": [
+      "member_id",
+      "nickname"
+    ],
+    "probe_steps": [
+      {
+        "id": "probe_open_account_list",
+        "description": "Open the member's account list directly (read-only)",
+        "action": "navigate",
+        "target": null,
+        "value": "/member/{member_id}/accounts",
+        "secret_ref": null,
+        "output": null,
+        "risk": "safe",
+        "precondition": [],
+        "checkpoint": [
+          {
+            "kind": "route_matches",
+            "pattern": "/member/:member_id/accounts",
+            "frame_path": []
+          }
+        ],
+        "timeout_ms": 10000,
+        "retry": null,
+        "performed_by": "authored"
+      }
+    ],
+    "exists": [
+      {
+        "kind": "element_visible",
+        "target": {
+          "description": "account row whose nickname matches",
+          "frame_path": [],
+          "candidates": [
+            {
+              "strategy": "table_cell",
+              "row_key_column": "Nickname",
+              "row_key_value": "{nickname}",
+              "column_header": "Acct",
+              "control_role": null
+            }
+          ]
+        }
+      }
+    ],
+    "on_exists_extract": []
+  },
+  "provenance": {
+    "discovery_run_id": "discover-20261005T194028-680b6e",
+    "model": "mock-llm (scripted)",
+    "recorded_at": "2026-10-05T19:40:39.298467Z",
+    "recorder_version": "0.1.0",
+    "goal_redacted": "Open a new Sub-Savings sub-account nicknamed '•••ay' for member •••42 with an initial deposit of •••00 from S01, and reach the confirmation screen",
+    "redactions_applied": [
+      "field:address",
+      "field:balance",
+      "field:dob",
+      "field:full_name",
+      "field:member_id",
+      "field:phone",
+      "field:ssn",
+      "field:typed",
+      "secret:mockcore.password",
+      "secret:mockcore.username"
+    ],
+    "human_steps": [],
+    "reviewed_by": "demo-reviewer",
+    "approved_at": "2026-10-05T19:40:40.998606Z",
+    "parent_version": null,
+    "notes": [
+      "outputs are absent when already_existed=true (effect found by the idempotency probe)",
+      "review: verified submit classification and idempotency probe"
+    ]
+  },
+  "fingerprint": "sha256:5cb9d24544f7d141"
+}

@@ -1,0 +1,35 @@
+{
+  "run_id": "replay-20261005T194004-20e236",
+  "state": "ABORTED",
+  "owner": "none",
+  "epoch": 1,
+  "history": [
+    {
+      "at": "2026-10-05T19:40:05.193+00:00",
+      "event": "start",
+      "actor": "system",
+      "state": "RUNNING",
+      "owner": "automation",
+      "epoch": 1,
+      "reason": ""
+    },
+    {
+      "at": "2026-10-05T19:40:15.888+00:00",
+      "event": "escalate",
+      "actor": "automation",
+      "state": "PAUSED_FOR_HUMAN",
+      "owner": "none",
+      "epoch": 1,
+      "reason": "checkpoint not reached and no known condition detected; expected route matches /member/:member_id AND text 'Member Detail' visible"
+    },
+    {
+      "at": "2026-10-05T19:40:15.933+00:00",
+      "event": "expire",
+      "actor": "system",
+      "state": "ABORTED",
+      "owner": "none",
+      "epoch": 1,
+      "reason": "no operator attached (unattended run)"
+    }
+  ]
+}

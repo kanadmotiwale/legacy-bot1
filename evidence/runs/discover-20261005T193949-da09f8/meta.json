@@ -1,0 +1,7 @@
+{
+  "kind": "discovery",
+  "goal": "Look up member •••42 and read their current savings balance",
+  "target": "http://localhost:8000/app",
+  "model": "mock-llm (scripted)",
+  "started_at": 1791229189.513111
+}

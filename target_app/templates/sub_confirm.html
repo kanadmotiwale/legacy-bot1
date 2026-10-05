@@ -1,0 +1,10 @@
+{% extends "_main.html" %}
+{% block body %}
+<font size="4"><b>Sub-Account Opened</b></font>
+<table class="{{ cls('tbl') }}" cellspacing="0">
+<tr><td>Reference Number:</td><td><b>{{ ref }}</b></td></tr>
+<tr><td>New Account:</td><td>{{ suffix }}</td></tr>
+<tr><td>Nickname:</td><td>{{ nickname }}</td></tr>
+</table>
+<p><a href="{{ t.prefix }}/member/{{ m.member_id }}">Return to {{ t.label('detail_title') }}</a></p>
+{% endblock %}

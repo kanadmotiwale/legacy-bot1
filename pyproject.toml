@@ -1,0 +1,39 @@
+[project]
+name = "cua"
+version = "0.1.0"
+description = "Computer-use automation: LLM discovery -> typed capability artifact -> deterministic replay, with human handoff"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "playwright>=1.49",
+  "pydantic>=2.7",
+  "anthropic>=1.0",
+  "fastapi>=0.110",
+  "uvicorn>=0.29",
+  "jinja2>=3.1",
+  "python-multipart>=0.0.9",
+  "typer>=0.12",
+  "pyyaml>=6.0",
+  "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+cua = "cua.cli:app"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src", "."]
+include = ["cua*", "target_app*", "operator_ui*"]
+
+[tool.setuptools.package-data]
+target_app = ["templates/*.html"]
+operator_ui = ["templates/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["browser: launches a real browser against the mock app"]

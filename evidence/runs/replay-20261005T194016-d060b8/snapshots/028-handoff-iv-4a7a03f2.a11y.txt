@@ -1,0 +1,10 @@
+## frame: nav  (http://localhost:8000/app/nav)
+[f1e0] text "MockCore Teller 4.3.1" (emphasis)
+[f1e1] link "Member Search"
+[f1e2] cell "|"
+[f1e3] link "Sign Off"
+## frame: main  (http://localhost:8000/member/•••42)
+[f2e0] text "Northfield Community Credit Union" (emphasis)
+[f2e1] text "Supervisor Override Required" (emphasis)
+[f2e2] cell "This record is flagged for review. A supervisor must acknowledge before the record can be opened."
+[f2e3] button "Acknowledge"

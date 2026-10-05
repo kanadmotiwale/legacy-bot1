@@ -1,0 +1,166 @@
+{
+  "run_id": "replay-20261005T194047-38dacf",
+  "capability_id": "mockcore.member.read_savings_balance",
+  "version": "1.2.0",
+  "tenant": "lakeshore_unmapped",
+  "duration_ms": 12640,
+  "events": [
+    {
+      "t_ms": 239,
+      "kind": "policy",
+      "step_id": "login_user",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 258,
+      "kind": "policy",
+      "step_id": "login_password",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 285,
+      "kind": "policy",
+      "step_id": "login_submit",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 329,
+      "kind": "login",
+      "step_id": null,
+      "detail": {
+        "route": "/tb/login",
+        "credential_refs": [
+          "mockcore.username",
+          "mockcore.password"
+        ]
+      }
+    },
+    {
+      "t_ms": 438,
+      "kind": "version_check",
+      "step_id": null,
+      "detail": {
+        "observed": "4.4.0",
+        "expected": ">=4.0,<5.0",
+        "ok": true
+      }
+    },
+    {
+      "t_ms": 507,
+      "kind": "policy",
+      "step_id": "click_member_search",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 550,
+      "kind": "step_completed",
+      "step_id": "click_member_search",
+      "detail": {
+        "index": 0,
+        "duration_ms": 106
+      }
+    },
+    {
+      "t_ms": 1469,
+      "kind": "drift",
+      "step_id": "type_member_id",
+      "detail": {
+        "expected_strategy": "near_label",
+        "matched_strategy": "css",
+        "matched_index": 1,
+        "note": "a lower-priority locator matched; the UI may have drifted for this tenant/version"
+      }
+    },
+    {
+      "t_ms": 1480,
+      "kind": "policy",
+      "step_id": "type_member_id",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 1511,
+      "kind": "step_completed",
+      "step_id": "type_member_id",
+      "detail": {
+        "index": 1,
+        "duration_ms": 960
+      }
+    },
+    {
+      "t_ms": 2436,
+      "kind": "drift",
+      "step_id": "click_search",
+      "detail": {
+        "expected_strategy": "role_name",
+        "matched_strategy": "css",
+        "matched_index": 2,
+        "note": "a lower-priority locator matched; the UI may have drifted for this tenant/version"
+      }
+    },
+    {
+      "t_ms": 2446,
+      "kind": "policy",
+      "step_id": "click_search",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    }
+  ],
+  "drift": [
+    {
+      "step_id": "type_member_id",
+      "expected_strategy": "near_label",
+      "matched_strategy": "css",
+      "matched_index": 1,
+      "note": "a lower-priority locator matched; the UI may have drifted for this tenant/version"
+    },
+    {
+      "step_id": "click_search",
+      "expected_strategy": "role_name",
+      "matched_strategy": "css",
+      "matched_index": 2,
+      "note": "a lower-priority locator matched; the UI may have drifted for this tenant/version"
+    }
+  ],
+  "evidence_dir": "evidence/runs/replay-20261005T194047-38dacf",
+  "status": "failure",
+  "error_code": "unrecognized_state",
+  "message": "checkpoint not reached and no known condition detected",
+  "step_index": 2,
+  "step_id": "click_search",
+  "expected": "route matches /tb/member/search AND text 'Member ID' visible",
+  "observed": "top=http://localhost:8000/tb/app [200]; nav=http://localhost:8000/tb/app/nav [200]; main=http://localhost:8000/tb/member/search?fld1=\u2022\u2022\u202242 [200]",
+  "locator_attempts": [],
+  "evidence": {
+    "screenshot": "snapshots/025-failure-click_search.png",
+    "a11y_snapshot": "snapshots/025-failure-click_search.a11y.txt"
+  }
+}

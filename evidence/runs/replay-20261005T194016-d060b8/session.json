@@ -1,0 +1,62 @@
+{
+  "run_id": "replay-20261005T194016-d060b8",
+  "state": "COMPLETED",
+  "owner": "none",
+  "epoch": 2,
+  "history": [
+    {
+      "at": "2026-10-05T19:40:16.193+00:00",
+      "event": "start",
+      "actor": "system",
+      "state": "RUNNING",
+      "owner": "automation",
+      "epoch": 1,
+      "reason": ""
+    },
+    {
+      "at": "2026-10-05T19:40:26.853+00:00",
+      "event": "escalate",
+      "actor": "automation",
+      "state": "PAUSED_FOR_HUMAN",
+      "owner": "none",
+      "epoch": 1,
+      "reason": "checkpoint not reached and no known condition detected; expected route matches /member/:member_id AND text 'Member Detail' visible"
+    },
+    {
+      "at": "2026-10-05T19:40:27.163+00:00",
+      "event": "take_control",
+      "actor": "human:demo-operator",
+      "state": "HUMAN_IN_CONTROL",
+      "owner": "human",
+      "epoch": 1,
+      "reason": "taking over the live session"
+    },
+    {
+      "at": "2026-10-05T19:40:28.435+00:00",
+      "event": "resume",
+      "actor": "human:demo-operator",
+      "state": "RESUMING",
+      "owner": "none",
+      "epoch": 1,
+      "reason": "done, handing control back"
+    },
+    {
+      "at": "2026-10-05T19:40:28.445+00:00",
+      "event": "verified",
+      "actor": "automation",
+      "state": "RUNNING",
+      "owner": "automation",
+      "epoch": 2,
+      "reason": "checkpoint of click_view holds"
+    },
+    {
+      "at": "2026-10-05T19:40:28.512+00:00",
+      "event": "complete",
+      "actor": "automation",
+      "state": "COMPLETED",
+      "owner": "none",
+      "epoch": 2,
+      "reason": ""
+    }
+  ]
+}

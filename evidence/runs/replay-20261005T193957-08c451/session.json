@@ -1,0 +1,26 @@
+{
+  "run_id": "replay-20261005T193957-08c451",
+  "state": "COMPLETED",
+  "owner": "none",
+  "epoch": 1,
+  "history": [
+    {
+      "at": "2026-10-05T19:39:57.724+00:00",
+      "event": "start",
+      "actor": "system",
+      "state": "RUNNING",
+      "owner": "automation",
+      "epoch": 1,
+      "reason": ""
+    },
+    {
+      "at": "2026-10-05T19:39:58.600+00:00",
+      "event": "complete",
+      "actor": "automation",
+      "state": "COMPLETED",
+      "owner": "none",
+      "epoch": 1,
+      "reason": ""
+    }
+  ]
+}

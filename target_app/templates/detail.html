@@ -1,0 +1,13 @@
+{% extends "_main.html" %}
+{% block body %}
+<font size="4"><b>{{ t.label('detail_title') }}</b></font>
+<table class="{{ cls('tbl') }}" cellspacing="0" border="0">
+<tr><td>{{ t.label('member_id') }}:</td><td>{{ m.member_id }}</td><td>Branch:</td><td>{{ m.branch }}</td></tr>
+<tr><td>Name:</td><td>{{ m.full_name }}</td><td>Status:</td><td>{{ m.status }}</td></tr>
+<tr><td>Date of Birth:</td><td>{{ m.dob }}</td><td>SSN:</td><td>{{ m.ssn }}</td></tr>
+<tr><td>Phone:</td><td>{{ m.phone }}</td><td>Address:</td><td>{{ m.address }}</td></tr>
+</table>
+<p><a href="{{ t.prefix }}/subaccount/new?m={{ m.member_id }}">{{ t.label('open_sub') }}</a> &nbsp;|&nbsp; <a href="{{ t.prefix }}/member/search">Back to Search</a></p>
+<b>Accounts</b><br>
+<iframe name="acctframe" src="{{ t.prefix }}/member/{{ m.member_id }}/accounts" width="100%" height="200" frameborder="0"></iframe>
+{% endblock %}

@@ -1,0 +1,2 @@
+{"decision": "take_control", "operator": "demo-operator", "note": "taking over the live session", "at": "2026-10-05T19:40:26.924+00:00"}
+{"decision": "resume", "operator": "demo-operator", "note": "done, handing control back", "at": "2026-10-05T19:40:28.404+00:00"}

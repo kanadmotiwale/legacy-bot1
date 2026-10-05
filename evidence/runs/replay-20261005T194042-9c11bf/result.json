@@ -1,0 +1,345 @@
+{
+  "run_id": "replay-20261005T194042-9c11bf",
+  "capability_id": "mockcore.subaccount.open",
+  "version": "1.0.0",
+  "tenant": null,
+  "duration_ms": 1717,
+  "events": [
+    {
+      "t_ms": 241,
+      "kind": "policy",
+      "step_id": "login_user",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 261,
+      "kind": "policy",
+      "step_id": "login_password",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 288,
+      "kind": "policy",
+      "step_id": "login_submit",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 331,
+      "kind": "login",
+      "step_id": null,
+      "detail": {
+        "route": "/login",
+        "credential_refs": [
+          "mockcore.username",
+          "mockcore.password"
+        ]
+      }
+    },
+    {
+      "t_ms": 440,
+      "kind": "version_check",
+      "step_id": null,
+      "detail": {
+        "observed": "4.3.1",
+        "expected": ">=4.0,<5.0",
+        "ok": true
+      }
+    },
+    {
+      "t_ms": 441,
+      "kind": "policy",
+      "step_id": "probe_open_account_list",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 459,
+      "kind": "idempotency_probe",
+      "step_id": null,
+      "detail": {
+        "when": "before_start",
+        "key_inputs": [
+          "member_id",
+          "nickname"
+        ],
+        "found": false
+      }
+    },
+    {
+      "t_ms": 521,
+      "kind": "policy",
+      "step_id": "click_member_search",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 570,
+      "kind": "step_completed",
+      "step_id": "click_member_search",
+      "detail": {
+        "index": 0,
+        "duration_ms": 106
+      }
+    },
+    {
+      "t_ms": 608,
+      "kind": "policy",
+      "step_id": "type_member_id",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 626,
+      "kind": "step_completed",
+      "step_id": "type_member_id",
+      "detail": {
+        "index": 1,
+        "duration_ms": 55
+      }
+    },
+    {
+      "t_ms": 651,
+      "kind": "policy",
+      "step_id": "click_search",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 818,
+      "kind": "step_completed",
+      "step_id": "click_search",
+      "detail": {
+        "index": 2,
+        "duration_ms": 192
+      }
+    },
+    {
+      "t_ms": 849,
+      "kind": "policy",
+      "step_id": "click_view",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 1013,
+      "kind": "step_completed",
+      "step_id": "click_view",
+      "detail": {
+        "index": 3,
+        "duration_ms": 194
+      }
+    },
+    {
+      "t_ms": 1051,
+      "kind": "policy",
+      "step_id": "click_open_sub_account",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 1085,
+      "kind": "step_completed",
+      "step_id": "click_open_sub_account",
+      "detail": {
+        "index": 4,
+        "duration_ms": 72
+      }
+    },
+    {
+      "t_ms": 1120,
+      "kind": "policy",
+      "step_id": "select_account_type",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 1139,
+      "kind": "step_completed",
+      "step_id": "select_account_type",
+      "detail": {
+        "index": 5,
+        "duration_ms": 53
+      }
+    },
+    {
+      "t_ms": 1167,
+      "kind": "policy",
+      "step_id": "type_nickname",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 1182,
+      "kind": "step_completed",
+      "step_id": "type_nickname",
+      "detail": {
+        "index": 6,
+        "duration_ms": 43
+      }
+    },
+    {
+      "t_ms": 1211,
+      "kind": "policy",
+      "step_id": "type_initial_deposit",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 1227,
+      "kind": "step_completed",
+      "step_id": "type_initial_deposit",
+      "detail": {
+        "index": 7,
+        "duration_ms": 44
+      }
+    },
+    {
+      "t_ms": 1257,
+      "kind": "policy",
+      "step_id": "select_funding_account",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 1275,
+      "kind": "step_completed",
+      "step_id": "select_funding_account",
+      "detail": {
+        "index": 8,
+        "duration_ms": 47
+      }
+    },
+    {
+      "t_ms": 1300,
+      "kind": "policy",
+      "step_id": "click_continue",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 1449,
+      "kind": "step_completed",
+      "step_id": "click_continue",
+      "detail": {
+        "index": 9,
+        "duration_ms": 173
+      }
+    },
+    {
+      "t_ms": 1480,
+      "kind": "policy",
+      "step_id": "click_submit",
+      "detail": {
+        "decision": "allow",
+        "reason": "irreversible step allowed: approved artifact + explicit flag",
+        "risk": "irreversible",
+        "rule": "irreversible[0]"
+      }
+    },
+    {
+      "t_ms": 1633,
+      "kind": "step_completed",
+      "step_id": "click_submit",
+      "detail": {
+        "index": 10,
+        "duration_ms": 184
+      }
+    },
+    {
+      "t_ms": 1662,
+      "kind": "policy",
+      "step_id": "extract_reference_number",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "safe",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 1668,
+      "kind": "extracted",
+      "step_id": "extract_reference_number",
+      "detail": {
+        "output": "reference_number",
+        "value": "SA-480034",
+        "digest": "sha256:bda3850719f4"
+      }
+    },
+    {
+      "t_ms": 1668,
+      "kind": "step_completed",
+      "step_id": "extract_reference_number",
+      "detail": {
+        "index": 11,
+        "duration_ms": 34
+      }
+    }
+  ],
+  "drift": [],
+  "evidence_dir": "evidence/runs/replay-20261005T194042-9c11bf",
+  "status": "success",
+  "outputs": {
+    "reference_number": "SA-480034"
+  },
+  "already_existed": false
+}

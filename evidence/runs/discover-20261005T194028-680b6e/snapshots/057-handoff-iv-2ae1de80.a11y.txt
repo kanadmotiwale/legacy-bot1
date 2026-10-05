@@ -1,0 +1,21 @@
+## frame: nav  (http://localhost:8000/app/nav)
+[f1e0] text "MockCore Teller 4.3.1" (emphasis)
+[f1e1] link "Member Search"
+[f1e2] cell "|"
+[f1e3] link "Sign Off"
+## frame: main  (http://localhost:8000/subaccount/review)
+[f2e0] text "Northfield Community Credit Union" (emphasis)
+[f2e1] text "Review Sub-Account" (emphasis)
+[f2e2] text "Please review. Submitting will open the account and transfer funds. This cannot be undone."
+[f2e3] cell "Member ID"
+[f2e4] cell "\u2022\u2022\u202242"
+[f2e5] cell "Account Type"
+[f2e6] cell "Sub-Savings"
+[f2e7] cell "Nickname"
+[f2e8] cell "\u2022\u2022\u2022ay"
+[f2e9] cell "Initial Deposit"
+[f2e10] cell "$\u2022\u2022\u202200"
+[f2e11] cell "Funding Account"
+[f2e12] cell "S01"
+[f2e13] button "Back"
+[f2e14] button "Submit"

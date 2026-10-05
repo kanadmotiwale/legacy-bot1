@@ -1,0 +1,137 @@
+# Vendor app profile for "MockCore Teller".
+#
+# Knowledge that belongs to the vendor PRODUCT, not to one capability or one tenant:
+# how to sign on, what its error states look like, how to check whether a write
+# already happened. Authored once per product; the recorder copies the relevant
+# parts into each artifact so artifacts stay self-contained and versioned.
+
+vendor_product: MockCore Teller
+app_version_range: ">=4.0,<5.0"
+surface: legacy_web
+version_probe:
+  frame_path: [{name: nav}]
+  pattern: "MockCore Teller (\\d+\\.\\d+\\.\\d+)"
+
+session:
+  login_route: /login
+  credential_refs: [mockcore.username, mockcore.password]
+  logged_in:
+    - {kind: route_matches, pattern: /app, frame_path: []}
+  login_steps:
+    - id: login_user
+      description: Type the teller user ID
+      action: type
+      secret_ref: mockcore.username
+      risk: reversible
+      performed_by: authored
+      target:
+        description: User ID field
+        frame_path: []
+        candidates:
+          - {strategy: near_label, label_text: "User ID:", control_role: textbox}
+          - {strategy: css, selector: "input[name=usr]"}
+    - id: login_password
+      description: Type the teller password
+      action: type
+      secret_ref: mockcore.password
+      risk: reversible
+      performed_by: authored
+      target:
+        description: Password field
+        frame_path: []
+        candidates:
+          - {strategy: near_label, label_text: "Password:", control_role: textbox}
+          - {strategy: css, selector: "input[type=password]"}
+    - id: login_submit
+      description: Sign on
+      action: click
+      risk: reversible
+      performed_by: authored
+      target:
+        description: Sign On button
+        frame_path: []
+        candidates:
+          - {strategy: role_name, role: button, name: Sign On}
+      checkpoint:
+        - {kind: route_matches, pattern: /app, frame_path: []}
+
+outcomes:
+  - {name: member_not_found, description: "No member exists with the given member ID."}
+  - {name: permission_denied, description: "The service account may not view this member (e.g. restricted employee account)."}
+  - name: validation_error
+    description: "The application rejected the submitted values. field_errors maps field -> message."
+    detail_fields: [field_errors]
+
+handlers:
+  - id: member_not_found
+    description: Search returned no member
+    routes: ["/member/search"]
+    category: business_outcome
+    detect: [{kind: text_visible, text: "No member found"}]
+    response: {type: return_outcome, outcome: member_not_found}
+
+  - id: permission_denied
+    description: Access denied page
+    routes: ["*"]
+    category: business_outcome
+    detect: [{kind: text_visible, text: "Access Denied"}]
+    response: {type: return_outcome, outcome: permission_denied}
+
+  - id: validation_error
+    description: Form re-rendered with field errors
+    routes: ["/subaccount/**"]
+    category: business_outcome
+    detect: [{kind: text_visible, text: "Please correct the errors below"}]
+    response:
+      type: return_outcome
+      outcome: validation_error
+      details:
+        - {name: field_errors, anchor_text: "Please correct the errors below:", parse: field_colon_message}
+
+  - id: maintenance_notice
+    description: System notice interstitial overlays the page
+    routes: ["*"]
+    category: recoverable
+    detect: [{kind: text_visible, text: "System Notice"}]
+    response:
+      type: dismiss
+      max_times: 3
+      target:
+        description: OK button on the system notice
+        frame_path: null
+        candidates:
+          - {strategy: role_name, role: button, name: OK}
+
+  - id: session_expired
+    description: Session timed out; app shows the sign-on page
+    routes: ["*"]
+    category: recoverable
+    detect: [{kind: text_visible, text: "Your session has expired"}]
+    response: {type: reauthenticate, max_times: 1}
+
+  - id: server_error
+    description: Transient application error page (HTTP 5xx)
+    routes: ["*"]
+    category: recoverable
+    detect: [{kind: http_status, min: 500, max: 599}]
+    response: {type: retry, policy: {max_attempts: 2, backoff_ms: [500, 1500]}}
+
+idempotency_probes:
+  - when_route: "/subaccount/**"
+    key_inputs: [member_id, nickname]
+    probe_steps:
+      - id: probe_open_account_list
+        description: Open the member's account list directly (read-only)
+        action: navigate
+        value: "/member/{member_id}/accounts"
+        risk: safe
+        performed_by: authored
+        checkpoint:
+          - {kind: route_matches, pattern: "/member/:member_id/accounts", frame_path: []}
+    exists:
+      - kind: element_visible
+        target:
+          description: account row whose nickname matches
+          frame_path: []
+          candidates:
+            - {strategy: table_cell, row_key_column: Nickname, row_key_value: "{nickname}", column_header: Acct}

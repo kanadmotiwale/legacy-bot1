@@ -1,0 +1,179 @@
+{
+  "id": "iv-003738ef",
+  "run_id": "replay-20261005T194041-f377d5",
+  "kind": "approval",
+  "created_at": "2026-10-05T19:40:42.517+00:00",
+  "mode": "replay",
+  "capability_id": "mockcore.subaccount.open",
+  "goal": null,
+  "step_id": "click_submit",
+  "step_index": 10,
+  "step_description": "Submit the reviewed sub-account (irreversible)",
+  "reason": "irreversible step without --allow-irreversible",
+  "current_url": "top=http://localhost:8000/app; nav=http://localhost:8000/app/nav; main=http://localhost:8000/subaccount/review",
+  "screenshot": "snapshots/064-handoff-iv-003738ef.png",
+  "a11y_snapshot": "snapshots/064-handoff-iv-003738ef.a11y.txt",
+  "recent_events": [
+    {
+      "run_id": "replay-20261005T194041-f377d5",
+      "seq": 55,
+      "t_ms": 1262,
+      "ts": "2026-10-05T19:40:42.265+00:00",
+      "type": "action",
+      "step_id": "select_funding_account",
+      "kind": "select",
+      "ok": true,
+      "error": null,
+      "duration_ms": 4
+    },
+    {
+      "run_id": "replay-20261005T194041-f377d5",
+      "seq": 56,
+      "t_ms": 1275,
+      "ts": "2026-10-05T19:40:42.278+00:00",
+      "type": "step_completed",
+      "step_id": "select_funding_account",
+      "index": 8,
+      "duration_ms": 47
+    },
+    {
+      "run_id": "replay-20261005T194041-f377d5",
+      "seq": 57,
+      "t_ms": 1275,
+      "ts": "2026-10-05T19:40:42.279+00:00",
+      "type": "step_started",
+      "step_id": "click_continue",
+      "index": 9,
+      "action": "click",
+      "description": "Go to the review screen",
+      "risk": "reversible"
+    },
+    {
+      "run_id": "replay-20261005T194041-f377d5",
+      "seq": 58,
+      "t_ms": 1296,
+      "ts": "2026-10-05T19:40:42.299+00:00",
+      "type": "locator_resolved",
+      "step_id": "click_continue",
+      "strategy": "role_name",
+      "index": 0,
+      "attempts": [
+        {
+          "strategy": "role_name",
+          "match_count": 1,
+          "error": null
+        },
+        {
+          "strategy": "text",
+          "match_count": 1,
+          "error": null
+        },
+        {
+          "strategy": "css",
+          "match_count": 1,
+          "error": null
+        }
+      ]
+    },
+    {
+      "run_id": "replay-20261005T194041-f377d5",
+      "seq": 59,
+      "t_ms": 1300,
+      "ts": "2026-10-05T19:40:42.303+00:00",
+      "type": "policy",
+      "step_id": "click_continue",
+      "decision": "allow",
+      "reason": "allowed",
+      "risk": "reversible",
+      "rule": null
+    },
+    {
+      "run_id": "replay-20261005T194041-f377d5",
+      "seq": 60,
+      "t_ms": 1317,
+      "ts": "2026-10-05T19:40:42.320+00:00",
+      "type": "action",
+      "step_id": "click_continue",
+      "kind": "click",
+      "ok": true,
+      "error": null,
+      "duration_ms": 16
+    },
+    {
+      "run_id": "replay-20261005T194041-f377d5",
+      "seq": 61,
+      "t_ms": 1449,
+      "ts": "2026-10-05T19:40:42.452+00:00",
+      "type": "step_completed",
+      "step_id": "click_continue",
+      "index": 9,
+      "duration_ms": 173
+    },
+    {
+      "run_id": "replay-20261005T194041-f377d5",
+      "seq": 62,
+      "t_ms": 1449,
+      "ts": "2026-10-05T19:40:42.452+00:00",
+      "type": "step_started",
+      "step_id": "click_submit",
+      "index": 10,
+      "action": "click",
+      "description": "Submit the reviewed sub-account (irreversible)",
+      "risk": "irreversible"
+    },
+    {
+      "run_id": "replay-20261005T194041-f377d5",
+      "seq": 63,
+      "t_ms": 1472,
+      "ts": "2026-10-05T19:40:42.475+00:00",
+      "type": "locator_resolved",
+      "step_id": "click_submit",
+      "strategy": "role_name",
+      "index": 0,
+      "attempts": [
+        {
+          "strategy": "role_name",
+          "match_count": 1,
+          "error": null
+        },
+        {
+          "strategy": "text",
+          "match_count": 1,
+          "error": null
+        },
+        {
+          "strategy": "css",
+          "match_count": 1,
+          "error": null
+        }
+      ]
+    },
+    {
+      "run_id": "replay-20261005T194041-f377d5",
+      "seq": 64,
+      "t_ms": 1479,
+      "ts": "2026-10-05T19:40:42.482+00:00",
+      "type": "policy",
+      "step_id": "click_submit",
+      "decision": "requires_approval",
+      "reason": "irreversible step without --allow-irreversible",
+      "risk": "irreversible",
+      "rule": "irreversible[0]"
+    }
+  ],
+  "proposed_action": {
+    "action": "click",
+    "target": "Submit button",
+    "risk": "irreversible"
+  },
+  "expected_after_resume": "route matches /subaccount/submit AND text 'Sub-Account Opened' visible",
+  "cdp_endpoint": "http://127.0.0.1:54064",
+  "allowed_decisions": [
+    "approve",
+    "take_control",
+    "abort"
+  ],
+  "status": "expired",
+  "resolution": "detached: returned NeedsHuman to caller",
+  "human_actions": []
+}

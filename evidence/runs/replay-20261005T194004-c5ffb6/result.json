@@ -1,0 +1,19 @@
+{
+  "run_id": "replay-20261005T194004-c5ffb6",
+  "capability_id": "mockcore.member.read_savings_balance",
+  "version": "1.0.0",
+  "tenant": null,
+  "duration_ms": 0,
+  "events": [],
+  "drift": [],
+  "evidence_dir": "evidence/runs/replay-20261005T194004-c5ffb6",
+  "status": "failure",
+  "error_code": "invalid_input",
+  "message": "input validation failed",
+  "step_index": null,
+  "step_id": null,
+  "expected": "params matching the capability's typed inputs",
+  "observed": "member_id: must match ^\\d{5}$",
+  "locator_attempts": [],
+  "evidence": {}
+}

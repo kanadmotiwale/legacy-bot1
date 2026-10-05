@@ -1,0 +1,190 @@
+{
+  "id": "iv-4a7a03f2",
+  "run_id": "replay-20261005T194016-d060b8",
+  "kind": "stuck",
+  "created_at": "2026-10-05T19:40:26.908+00:00",
+  "mode": "replay",
+  "capability_id": "mockcore.member.read_savings_balance",
+  "goal": null,
+  "step_id": "click_view",
+  "step_index": 3,
+  "step_description": "Open the matching member's detail page",
+  "reason": "checkpoint not reached and no known condition detected; expected route matches /member/:member_id AND text 'Member Detail' visible",
+  "current_url": "top=http://localhost:8000/app; nav=http://localhost:8000/app/nav; main=http://localhost:8000/member/•••42",
+  "screenshot": "snapshots/028-handoff-iv-4a7a03f2.png",
+  "a11y_snapshot": "snapshots/028-handoff-iv-4a7a03f2.a11y.txt",
+  "recent_events": [
+    {
+      "run_id": "replay-20261005T194016-d060b8",
+      "seq": 19,
+      "t_ms": 597,
+      "ts": "2026-10-05T19:40:16.598+00:00",
+      "type": "step_completed",
+      "step_id": "type_member_id",
+      "index": 1,
+      "duration_ms": 55
+    },
+    {
+      "run_id": "replay-20261005T194016-d060b8",
+      "seq": 20,
+      "t_ms": 597,
+      "ts": "2026-10-05T19:40:16.598+00:00",
+      "type": "step_started",
+      "step_id": "click_search",
+      "index": 2,
+      "action": "click",
+      "description": "Run the search",
+      "risk": "reversible"
+    },
+    {
+      "run_id": "replay-20261005T194016-d060b8",
+      "seq": 21,
+      "t_ms": 619,
+      "ts": "2026-10-05T19:40:16.620+00:00",
+      "type": "locator_resolved",
+      "step_id": "click_search",
+      "strategy": "role_name",
+      "index": 0,
+      "attempts": [
+        {
+          "strategy": "role_name",
+          "match_count": 1,
+          "error": null
+        },
+        {
+          "strategy": "text",
+          "match_count": 1,
+          "error": null
+        },
+        {
+          "strategy": "css",
+          "match_count": 1,
+          "error": null
+        }
+      ]
+    },
+    {
+      "run_id": "replay-20261005T194016-d060b8",
+      "seq": 22,
+      "t_ms": 623,
+      "ts": "2026-10-05T19:40:16.624+00:00",
+      "type": "policy",
+      "step_id": "click_search",
+      "decision": "allow",
+      "reason": "allowed",
+      "risk": "reversible",
+      "rule": null
+    },
+    {
+      "run_id": "replay-20261005T194016-d060b8",
+      "seq": 23,
+      "t_ms": 656,
+      "ts": "2026-10-05T19:40:16.657+00:00",
+      "type": "action",
+      "step_id": "click_search",
+      "kind": "click",
+      "ok": true,
+      "error": null,
+      "duration_ms": 33
+    },
+    {
+      "run_id": "replay-20261005T194016-d060b8",
+      "seq": 24,
+      "t_ms": 791,
+      "ts": "2026-10-05T19:40:16.792+00:00",
+      "type": "step_completed",
+      "step_id": "click_search",
+      "index": 2,
+      "duration_ms": 194
+    },
+    {
+      "run_id": "replay-20261005T194016-d060b8",
+      "seq": 25,
+      "t_ms": 791,
+      "ts": "2026-10-05T19:40:16.792+00:00",
+      "type": "step_started",
+      "step_id": "click_view",
+      "index": 3,
+      "action": "click",
+      "description": "Open the matching member's detail page",
+      "risk": "reversible"
+    },
+    {
+      "run_id": "replay-20261005T194016-d060b8",
+      "seq": 26,
+      "t_ms": 813,
+      "ts": "2026-10-05T19:40:16.815+00:00",
+      "type": "locator_resolved",
+      "step_id": "click_view",
+      "strategy": "table_cell",
+      "index": 0,
+      "attempts": [
+        {
+          "strategy": "table_cell",
+          "match_count": 1,
+          "error": null
+        },
+        {
+          "strategy": "role_name",
+          "match_count": 1,
+          "error": null
+        },
+        {
+          "strategy": "text",
+          "match_count": 1,
+          "error": null
+        },
+        {
+          "strategy": "css",
+          "match_count": 1,
+          "error": null
+        }
+      ]
+    },
+    {
+      "run_id": "replay-20261005T194016-d060b8",
+      "seq": 27,
+      "t_ms": 822,
+      "ts": "2026-10-05T19:40:16.823+00:00",
+      "type": "policy",
+      "step_id": "click_view",
+      "decision": "allow",
+      "reason": "allowed",
+      "risk": "reversible",
+      "rule": null
+    },
+    {
+      "run_id": "replay-20261005T194016-d060b8",
+      "seq": 28,
+      "t_ms": 840,
+      "ts": "2026-10-05T19:40:16.841+00:00",
+      "type": "action",
+      "step_id": "click_view",
+      "kind": "click",
+      "ok": true,
+      "error": null,
+      "duration_ms": 17
+    }
+  ],
+  "proposed_action": null,
+  "expected_after_resume": "route matches /member/:member_id AND text 'Member Detail' visible",
+  "cdp_endpoint": "http://127.0.0.1:54021",
+  "allowed_decisions": [
+    "take_control",
+    "abort"
+  ],
+  "status": "resolved",
+  "resolution": "resume by demo-operator",
+  "human_actions": [
+    {
+      "kind": "click",
+      "role": "button",
+      "name": "Acknowledge",
+      "label": null,
+      "column": null,
+      "value": null,
+      "frame": "main",
+      "css": "body:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(1) > form:nth-of-type(1) > input:nth-of-type(2)"
+    }
+  ]
+}

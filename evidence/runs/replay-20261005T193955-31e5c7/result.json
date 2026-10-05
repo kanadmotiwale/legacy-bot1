@@ -1,0 +1,131 @@
+{
+  "run_id": "replay-20261005T193955-31e5c7",
+  "capability_id": "mockcore.member.read_savings_balance",
+  "version": "1.0.0",
+  "tenant": null,
+  "duration_ms": 822,
+  "events": [
+    {
+      "t_ms": 234,
+      "kind": "policy",
+      "step_id": "login_user",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 253,
+      "kind": "policy",
+      "step_id": "login_password",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 281,
+      "kind": "policy",
+      "step_id": "login_submit",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 325,
+      "kind": "login",
+      "step_id": null,
+      "detail": {
+        "route": "/login",
+        "credential_refs": [
+          "mockcore.username",
+          "mockcore.password"
+        ]
+      }
+    },
+    {
+      "t_ms": 433,
+      "kind": "version_check",
+      "step_id": null,
+      "detail": {
+        "observed": "4.3.1",
+        "expected": ">=4.0,<5.0",
+        "ok": true
+      }
+    },
+    {
+      "t_ms": 501,
+      "kind": "policy",
+      "step_id": "click_member_search",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 544,
+      "kind": "step_completed",
+      "step_id": "click_member_search",
+      "detail": {
+        "index": 0,
+        "duration_ms": 105
+      }
+    },
+    {
+      "t_ms": 582,
+      "kind": "policy",
+      "step_id": "type_member_id",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 601,
+      "kind": "step_completed",
+      "step_id": "type_member_id",
+      "detail": {
+        "index": 1,
+        "duration_ms": 55
+      }
+    },
+    {
+      "t_ms": 626,
+      "kind": "policy",
+      "step_id": "click_search",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 784,
+      "kind": "handler_fired",
+      "step_id": "click_search",
+      "detail": {
+        "handler": "member_not_found",
+        "category": "business_outcome",
+        "response": "return_outcome"
+      }
+    }
+  ],
+  "drift": [],
+  "evidence_dir": "evidence/runs/replay-20261005T193955-31e5c7",
+  "status": "business_outcome",
+  "outcome": "member_not_found",
+  "step_id": "click_search",
+  "details": {}
+}

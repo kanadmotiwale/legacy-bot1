@@ -1,0 +1,7 @@
+{
+  "kind": "discovery",
+  "goal": "Open a new Sub-Savings sub-account nicknamed '•••ay' for member •••42 with an initial deposit of •••00 from S01, and reach the confirmation screen",
+  "target": "http://localhost:8000/app",
+  "model": "mock-llm (scripted)",
+  "started_at": 1791229228.57202
+}

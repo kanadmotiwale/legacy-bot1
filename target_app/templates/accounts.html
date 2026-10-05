@@ -1,0 +1,8 @@
+<html><head><style>body{font-family:Verdana;font-size:12px;margin:0;background:#fff} td{font-size:12px;padding:3px 6px}</style></head><body>
+<table border="1" cellspacing="0" class="{{ cls('acct') }}">
+<tr bgcolor="#c8c8b8"><td><b>Acct</b></td><td><b>Type</b></td><td><b>Nickname</b></td><td><b>{{ t.label('balance') }}</b></td><td><b>Opened</b></td></tr>
+{% for a in m.accounts %}
+<tr><td>{{ a.suffix }}</td><td>{{ a.type }}</td><td>{{ a.nickname }}</td><td align="right">{{ money(a.balance) }}</td><td>{{ a.opened }}</td></tr>
+{% endfor %}
+</table>
+</body></html>

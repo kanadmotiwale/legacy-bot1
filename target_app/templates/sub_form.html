@@ -1,0 +1,25 @@
+{% extends "_main.html" %}
+{% block body %}
+<font size="4"><b>Open Sub-Account</b></font>
+<p>{{ t.label('member_id') }}: {{ m.member_id }}</p>
+{% if errors %}
+<div class="{{ cls('err') }}"><b>Please correct the errors below:</b><br>
+{% for e in errors %}{{ e }}<br>{% endfor %}</div>
+{% endif %}
+<form method="post" action="{{ t.prefix }}/subaccount/review">
+<input type="hidden" name="m" value="{{ m.member_id }}">
+<table class="{{ cls('tbl') }}" cellspacing="0">
+<tr><td>Account Type:</td><td><select name="f_t">
+ <option value="">-- select --</option>
+ {% for o in ["Sub-Savings", "Vacation Club", "Holiday Club"] %}<option value="{{ o }}" {% if v.get('f_t') == o %}selected{% endif %}>{{ o }}</option>{% endfor %}
+</select></td></tr>
+<tr><td><label for="nk">Nickname:</label></td><td><input id="nk" type="text" name="f_n" size="22" value="{{ v.get('f_n', '') }}"></td></tr>
+<tr><td>Initial Deposit:</td><td><input type="text" name="f_d" size="10" value="{{ v.get('f_d', '') }}"></td></tr>
+<tr><td>Funding Account:</td><td><select name="f_f">
+ <option value="">-- select --</option>
+ {% for a in m.accounts %}<option value="{{ a.suffix }}" {% if v.get('f_f') == a.suffix %}selected{% endif %}>{{ a.suffix }}</option>{% endfor %}
+</select></td></tr>
+<tr><td></td><td><input type="submit" value="Continue"></td></tr>
+</table>
+</form>
+{% endblock %}

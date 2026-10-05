@@ -1,0 +1,200 @@
+{
+  "run_id": "replay-20261005T193957-08c451",
+  "capability_id": "mockcore.member.read_savings_balance",
+  "version": "1.0.0",
+  "tenant": null,
+  "duration_ms": 1110,
+  "events": [
+    {
+      "t_ms": 239,
+      "kind": "policy",
+      "step_id": "login_user",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 258,
+      "kind": "policy",
+      "step_id": "login_password",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 285,
+      "kind": "policy",
+      "step_id": "login_submit",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 329,
+      "kind": "login",
+      "step_id": null,
+      "detail": {
+        "route": "/login",
+        "credential_refs": [
+          "mockcore.username",
+          "mockcore.password"
+        ]
+      }
+    },
+    {
+      "t_ms": 437,
+      "kind": "version_check",
+      "step_id": null,
+      "detail": {
+        "observed": "4.3.1",
+        "expected": ">=4.0,<5.0",
+        "ok": true
+      }
+    },
+    {
+      "t_ms": 507,
+      "kind": "policy",
+      "step_id": "click_member_search",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 549,
+      "kind": "step_completed",
+      "step_id": "click_member_search",
+      "detail": {
+        "index": 0,
+        "duration_ms": 105
+      }
+    },
+    {
+      "t_ms": 587,
+      "kind": "policy",
+      "step_id": "type_member_id",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 606,
+      "kind": "step_completed",
+      "step_id": "type_member_id",
+      "detail": {
+        "index": 1,
+        "duration_ms": 57
+      }
+    },
+    {
+      "t_ms": 632,
+      "kind": "policy",
+      "step_id": "click_search",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 798,
+      "kind": "step_completed",
+      "step_id": "click_search",
+      "detail": {
+        "index": 2,
+        "duration_ms": 191
+      }
+    },
+    {
+      "t_ms": 829,
+      "kind": "policy",
+      "step_id": "click_view",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 990,
+      "kind": "handler_fired",
+      "step_id": "click_view",
+      "detail": {
+        "handler": "maintenance_notice",
+        "category": "recoverable",
+        "response": "dismiss"
+      }
+    },
+    {
+      "t_ms": 1014,
+      "kind": "dismissed",
+      "step_id": "click_view",
+      "detail": {
+        "handler": "maintenance_notice",
+        "count": 1
+      }
+    },
+    {
+      "t_ms": 1028,
+      "kind": "step_completed",
+      "step_id": "click_view",
+      "detail": {
+        "index": 3,
+        "duration_ms": 229
+      }
+    },
+    {
+      "t_ms": 1064,
+      "kind": "policy",
+      "step_id": "extract_savings_balance",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "safe",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 1070,
+      "kind": "extracted",
+      "step_id": "extract_savings_balance",
+      "detail": {
+        "output": "savings_balance",
+        "value": "[REDACTED:savings_balance]",
+        "digest": "sha256:ee1bfc001b7e"
+      }
+    },
+    {
+      "t_ms": 1070,
+      "kind": "step_completed",
+      "step_id": "extract_savings_balance",
+      "detail": {
+        "index": 4,
+        "duration_ms": 42
+      }
+    }
+  ],
+  "drift": [],
+  "evidence_dir": "evidence/runs/replay-20261005T193957-08c451",
+  "status": "success",
+  "outputs": {
+    "savings_balance": "[REDACTED:savings_balance]"
+  },
+  "already_existed": false
+}

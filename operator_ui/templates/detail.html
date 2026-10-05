@@ -1,0 +1,46 @@
+{% extends "_base.html" %}
+{% block body %}
+<meta http-equiv="refresh" content="4">
+<p><a href="/">&larr; all requests</a></p>
+<h2>{{ req.kind }} &middot; {{ req.id }} <span class="pill {{ req.status }}">{{ req.status }}</span></h2>
+<p><b>Control lock:</b> state <code>{{ state.get('state') }}</code>, owner <code>{{ state.get('owner') }}</code>, epoch {{ state.get('epoch') }}</p>
+<div class="grid">
+ <div class="card">
+  <table>
+   <tr><th>Mode</th><td>{{ req.mode }}</td></tr>
+   <tr><th>Capability</th><td>{{ req.capability_id or '-' }}</td></tr>
+   <tr><th>Goal</th><td>{{ req.goal or '-' }}</td></tr>
+   <tr><th>Step</th><td>{{ req.step_index }} {{ req.step_id or '' }} {{ req.step_description or '' }}</td></tr>
+   <tr><th>Why it stopped</th><td>{{ req.reason }}</td></tr>
+   <tr><th>Current URL</th><td><code>{{ req.current_url }}</code></td></tr>
+   {% if req.proposed_action %}<tr><th>Proposed action</th><td><code>{{ req.proposed_action }}</code></td></tr>{% endif %}
+   {% if req.expected_after_resume %}<tr><th>Automation expects after resume</th><td>{{ req.expected_after_resume }}</td></tr>{% endif %}
+   <tr><th>Live session</th><td>Use the run's browser window, or attach a CDP client to <code>{{ req.cdp_endpoint }}</code>. Act only after <b>Take control</b>.</td></tr>
+  </table>
+  <form method="post" action="/iv/{{ req.run_id }}/{{ req.id }}/decide" style="margin-top:12px">
+   <input name="operator" placeholder="your name" value="operator" size="10">
+   <input name="note" placeholder="note" size="20"><br><br>
+   {% if req.status == 'open' %}
+     {% if 'approve' in req.allowed_decisions %}<button name="decision" value="approve">Approve action</button>{% endif %}
+     <button name="decision" value="take_control">Take control</button>
+     <button name="decision" value="abort">Abort</button>
+   {% elif req.status == 'human_in_control' %}
+     <button name="decision" value="resume">Resume automation</button>
+     <button name="decision" value="abort">Abort</button>
+   {% endif %}
+  </form>
+ </div>
+ <div class="card">
+  {% if req.screenshot %}<img src="/file/{{ req.run_id }}/{{ req.screenshot }}" alt="redacted screenshot">{% endif %}
+ </div>
+</div>
+<h3>Recent events</h3>
+<div class="card"><pre>{% for e in req.recent_events %}{{ e.t_ms }}ms {{ e.type }} {{ e.get('step_id', '') or '' }} {{ e.get('reason', '') or e.get('decision', '') or '' }}
+{% endfor %}</pre></div>
+<h3>Operator decisions</h3>
+<div class="card"><pre>{% for d in decisions %}{{ d.at }} {{ d.operator }}: {{ d.decision }} {{ d.note }}
+{% endfor %}</pre></div>
+{% if req.human_actions %}<h3>Recorded human actions</h3>
+<div class="card"><pre>{% for a in req.human_actions %}{{ a }}
+{% endfor %}</pre></div>{% endif %}
+{% endblock %}

@@ -1,0 +1,93 @@
+{
+  "run_id": "replay-20261005T194044-1fa9eb",
+  "capability_id": "mockcore.subaccount.open",
+  "version": "1.0.0",
+  "tenant": null,
+  "duration_ms": 499,
+  "events": [
+    {
+      "t_ms": 250,
+      "kind": "policy",
+      "step_id": "login_user",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 269,
+      "kind": "policy",
+      "step_id": "login_password",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 296,
+      "kind": "policy",
+      "step_id": "login_submit",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 340,
+      "kind": "login",
+      "step_id": null,
+      "detail": {
+        "route": "/login",
+        "credential_refs": [
+          "mockcore.username",
+          "mockcore.password"
+        ]
+      }
+    },
+    {
+      "t_ms": 448,
+      "kind": "version_check",
+      "step_id": null,
+      "detail": {
+        "observed": "4.3.1",
+        "expected": ">=4.0,<5.0",
+        "ok": true
+      }
+    },
+    {
+      "t_ms": 448,
+      "kind": "policy",
+      "step_id": "probe_open_account_list",
+      "detail": {
+        "decision": "allow",
+        "reason": "allowed",
+        "risk": "reversible",
+        "rule": null
+      }
+    },
+    {
+      "t_ms": 468,
+      "kind": "idempotency_probe",
+      "step_id": null,
+      "detail": {
+        "when": "before_start",
+        "key_inputs": [
+          "member_id",
+          "nickname"
+        ],
+        "found": true
+      }
+    }
+  ],
+  "drift": [],
+  "evidence_dir": "evidence/runs/replay-20261005T194044-1fa9eb",
+  "status": "success",
+  "outputs": {},
+  "already_existed": true
+}
